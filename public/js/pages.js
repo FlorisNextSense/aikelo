@@ -10,7 +10,7 @@
   P.home = function () {
     var a = A();
     var picks = ['longsleeve-echo', 'hoodie-holle-letters', 'longsleeve-stuiterend', 'hoodie-verticaal'];
-    var colors = { 'longsleeve-echo': 'wit', 'hoodie-holle-letters': 'navy', 'longsleeve-stuiterend': 'bordeaux', 'hoodie-verticaal': 'grijs' };
+    var colors = { 'longsleeve-echo': 'groen', 'hoodie-holle-letters': 'bordeaux', 'longsleeve-stuiterend': 'wit', 'hoodie-verticaal': 'navy' };
     a.$('#featured').innerHTML = picks.map(function (id) { return window.AIKELO_CARD(a.product(id), colors[id]); }).join('');
   };
 

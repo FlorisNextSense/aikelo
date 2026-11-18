@@ -171,7 +171,7 @@
       '<img class="front" src="' + img(p, color, 'voor') + '" alt="' + esc(p.name + ' in ' + COLORS[color].name + ', voorkant') + '" loading="lazy">' +
       '<img class="back" src="' + img(p, color, 'achter') + '" alt="" loading="lazy"></div>' +
       '<div class="card-body"><div class="card-title"><span>' + esc(p.name) + '</span><span>' + money(p.price) + '</span></div>' +
-      '<div class="card-sub">' + esc(CATS[p.cat].name) + ' · ' + p.colors.length + ' kleuren</div>' +
+      '<div class="card-sub">' + esc(CATS[p.cat].name) + ' · ' + p.colors.length + (p.colors.length === 1 ? ' kleur' : ' kleuren') + '</div>' +
       '<div class="dots" aria-hidden="true">' + p.colors.map(function (c) { return '<span class="dot" style="background:' + COLORS[c].hex + '"></span>'; }).join('') + '</div>' +
       '</div></a>';
   }
