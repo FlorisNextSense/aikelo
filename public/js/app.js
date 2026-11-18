@@ -65,8 +65,7 @@
   function header() {
     // laatste stuk van het pad, zodat het ook in een submap (GitHub Pages) werkt
     var path = location.pathname.replace(/\.html$/, '').split('/').pop();
-    var cat = new URLSearchParams(location.search).get('cat');
-    var here = path + (path === 'shop' && cat ? '?cat=' + cat : '');
+    var here = (path === '' || path === 'index') ? './' : path;
     function a(href, label) { return '<a href="' + href + '"' + (here === href ? ' aria-current="page"' : '') + '>' + label + '</a>'; }
     var announce = 'Gratis verzending vanaf ' + money(CFG.freeShippingFrom) + ' · 14 dagen bedenktijd';
     return '<div class="announce">' + esc(announce) + '</div>' +
@@ -74,7 +73,7 @@
       '<button class="icon-btn menu-btn" type="button" aria-label="Menu openen" aria-controls="nav" aria-expanded="false">' + ICONS.menu + '</button>' +
       '<nav class="nav" id="nav" aria-label="Hoofdmenu">' +
       '<button class="icon-btn nav-close" type="button" aria-label="Menu sluiten">' + ICONS.close + '</button>' +
-      a('shop', 'Kleding') + a('shop?cat=hoodies', 'Hoodies') + a('shop?cat=longsleeves', 'Longsleeves') + a('over', 'Over aikelo') + a('contact', 'Contact') +
+      a('./', 'Home') + a('shop', 'Kleding') + a('over', 'Over aikelo') + a('contact', 'Contact') +
       '</nav>' +
       '<a class="brand" href="./" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
       '<div class="header-actions"><button class="icon-btn" type="button" id="cartBtn" aria-label="Winkelmandje openen" aria-controls="cart">' + ICONS.bag + '<span class="cart-count" id="cartCount" hidden>0</span></button></div>' +
