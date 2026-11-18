@@ -86,7 +86,7 @@
     return '<footer class="site-footer"><div class="wrap">' +
       '<div class="footer-grid">' +
       '<div><img class="footer-logo" src="img/logo.svg" alt="aikelo"><p>made to live in. Kleding uit eigen schetsen, gemaakt om in te leven, niet om in te bewaren.</p></div>' +
-      '<div><h3>Shop</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li><li><a href="shop?cat=zip">Zip-up hoodies</a></li></ul></div>' +
+      '<div><h3>Shop</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li></ul></div>' +
       '<div><h3>Hulp</h3><ul><li><a href="info#verzending">Verzending</a></li><li><a href="info#retour">Retourneren</a></li><li><a href="info#maten">Maattabel</a></li><li><a href="info#faq">Veelgestelde vragen</a></li></ul></div>' +
       '<div><h3>aikelo</h3><ul><li><a href="over">Over ons</a></li><li><a href="contact">Contact</a></li><li><a href="https://instagram.com/' + esc(CFG.instagram) + '" rel="noopener" target="_blank">Instagram</a></li><li><a href="voorwaarden">Voorwaarden</a></li><li><a href="privacy">Privacy</a></li></ul></div>' +
       '</div>' +

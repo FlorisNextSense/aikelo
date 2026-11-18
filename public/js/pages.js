@@ -9,8 +9,8 @@
   // ---------- home ----------
   P.home = function () {
     var a = A();
-    var picks = ['longsleeve-echo', 'hoodie-holle-letters', 'longsleeve-stuiterend', 'zip-verticaal'];
-    var colors = { 'longsleeve-echo': 'wit', 'hoodie-holle-letters': 'navy', 'longsleeve-stuiterend': 'bordeaux', 'zip-verticaal': 'grijs' };
+    var picks = ['longsleeve-echo', 'hoodie-holle-letters', 'longsleeve-stuiterend', 'hoodie-verticaal'];
+    var colors = { 'longsleeve-echo': 'wit', 'hoodie-holle-letters': 'navy', 'longsleeve-stuiterend': 'bordeaux', 'hoodie-verticaal': 'grijs' };
     a.$('#featured').innerHTML = picks.map(function (id) { return window.AIKELO_CARD(a.product(id), colors[id]); }).join('');
   };
 
@@ -37,7 +37,7 @@
         : '<p class="note">Geen producten gevonden in deze combinatie.</p>';
       a.$$('[data-cat]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === cat)); });
       a.$('#shopTitle').textContent = cat === 'all' ? 'Alle kleding' : CATS[cat].name;
-      a.$('#shopLead').textContent = cat === 'all' ? 'Longsleeves, hoodies en zip-ups uit onze eerste collectie. Elk ontwerp begon als schets.' : CATS[cat].blurb;
+      a.$('#shopLead').textContent = cat === 'all' ? 'Longsleeves en hoodies uit onze eerste collectie. Elk ontwerp begon als schets.' : CATS[cat].blurb;
       a.$('#count').textContent = list.length + ' product' + (list.length === 1 ? '' : 'en');
       document.title = (cat === 'all' ? 'Shop' : CATS[cat].name) + ' · AIKELO';
       sel.value = color;
@@ -163,7 +163,7 @@
     }
     return '<p class="note">Gemeten plat op tafel. Borst is de breedte van oksel tot oksel.</p>' +
       t('Longsleeves', [['S', 51, 69, 61], ['M', 54, 72, 62], ['L', 57, 74, 63], ['XL', 60, 76, 64]]) +
-      t('Hoodies &amp; zip-ups', [['S', 59, 67, 57], ['M', 62, 70, 58], ['L', 65, 72, 59], ['XL', 68, 74, 60]]);
+      t('Hoodies', [['S', 59, 67, 57], ['M', 62, 70, 58], ['L', 65, 72, 59], ['XL', 68, 74, 60]]);
   }
   window.AIKELO_SIZE_TABLES = sizeTables;
   P.info = function () { A().$('#sizeTables').innerHTML = sizeTables(); };

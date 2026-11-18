@@ -25,8 +25,7 @@ window.AIKELO_COLORS = {
 
 window.AIKELO_CATEGORIES = {
   longsleeves: { name: 'Longsleeves', blurb: 'Zware katoenen longsleeves met print voor en achter.' },
-  hoodies:     { name: 'Hoodies',     blurb: 'Ruime, zachte hoodies met een grote print op de rug.' },
-  zip:         { name: 'Zip-up hoodies', blurb: 'Dezelfde ontwerpen, nu met rits.' }
+  hoodies:     { name: 'Hoodies',     blurb: 'Ruime, zachte hoodies met een grote print op de rug.' }
 };
 
 (function () {
@@ -96,38 +95,6 @@ window.AIKELO_CATEGORIES = {
       colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Grote regels tekst op de rug, als een poster.',
       desc: '“made to live in” in grote regels over de rug, opgebouwd als een poster. Voor een klein logo op de borst.',
-      isNew: false
-    },
-    {
-      id: 'zip-holle-letters', code: '5', cat: 'zip',
-      name: 'Zip-up Made to live in', price: 74.99, img: 'zip-holle-letters',
-      colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
-      short: 'Rits, en “made to live in” in een boog over de rug.',
-      desc: 'De Made to live in-hoodie met een rits. Grote letters in een boog over de rug, 2026 eronder.',
-      isNew: true
-    },
-    {
-      id: 'zip-nummer', code: '6', cat: 'zip',
-      name: 'Zip-up 01.', price: 74.99, img: 'zip-nummer',
-      colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
-      short: 'Rits, en een groot “01.” op de rug.',
-      desc: 'De 01.-hoodie met een rits. Groot 01. op de rug met aikelo eronder.',
-      isNew: false
-    },
-    {
-      id: 'zip-verticaal', code: '11', cat: 'zip',
-      name: 'Zip-up Verticaal', price: 74.99, img: 'zip-verticaal',
-      colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
-      short: 'Rits, en aikelo verticaal over de rug.',
-      desc: 'De Verticaal-hoodie met een rits. Een enorm aikelo van boven naar beneden over de rug.',
-      isNew: false
-    },
-    {
-      id: 'zip-poster', code: '14', cat: 'zip',
-      name: 'Zip-up Poster', price: 74.99, img: 'zip-poster',
-      colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
-      short: 'Rits, en grote regels tekst op de rug.',
-      desc: 'De Poster-hoodie met een rits. “made to live in” in grote regels over de rug.',
       isNew: false
     }
   ];

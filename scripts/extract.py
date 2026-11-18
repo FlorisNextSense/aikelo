@@ -3,7 +3,7 @@ Gebruik: python3 -I extract.py <map met .dc.html> <uitvoermap>"""
 import re, sys, os, json
 src, out = sys.argv[1], sys.argv[2]
 os.makedirs(out, exist_ok=True)
-boards = ["LongsleevesKleuren","StreepKleuren","HoodiesKleuren3","ZipHoodiesKleuren2"]
+boards = ["LongsleevesKleuren","StreepKleuren","HoodiesKleuren3"]
 index = {}
 for b in boards:
     s = open(os.path.join(src, b + ".dc.html")).read()

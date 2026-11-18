@@ -120,12 +120,13 @@ p { margin: 0 0 1em; }
 
 /* ---------- Category tiles ---------- */
 .cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.cats.two { grid-template-columns: repeat(2, 1fr); }
 .cat-tile { position: relative; background: var(--tile); aspect-ratio: 4 / 5; display: flex; flex-direction: column; justify-content: space-between; padding: 26px; text-decoration: none; overflow: hidden; }
 .cat-tile img { position: absolute; inset: 16% 10% 10%; width: 80%; height: 74%; object-fit: contain; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
 .cat-tile:hover img { transform: scale(1.05) rotate(-1.5deg); }
 .cat-tile h3 { position: relative; text-transform: uppercase; letter-spacing: .2em; font-size: 17px; }
 .cat-tile .link { position: relative; align-self: flex-start; }
-@media (max-width: 860px) { .cats { grid-template-columns: 1fr; } .cat-tile { aspect-ratio: 5 / 4; } }
+@media (max-width: 860px) { .cats, .cats.two { grid-template-columns: 1fr; } .cat-tile { aspect-ratio: 5 / 4; } }
 
 /* ---------- Product grid ---------- */
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 20px; }

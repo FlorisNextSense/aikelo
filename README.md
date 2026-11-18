@@ -1,6 +1,6 @@
 # AIKELO — webshop
 
-*made to live in.* De website van aikelo: longsleeves, hoodies en zip-up hoodies uit eigen schetsen.
+*made to live in.* De website van aikelo: longsleeves en hoodies uit eigen schetsen.
 
 Statische site (HTML, CSS en JavaScript), geen build-stap nodig. Alles wat online komt staat in [public/](public/).
 
