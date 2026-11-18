@@ -126,15 +126,26 @@
 
   function footer() {
     var y = new Date().getFullYear();
-    return '<footer class="site-footer"><div class="wrap">' +
-      '<div class="footer-grid">' +
-      '<div><img class="footer-logo" src="img/logo.svg" alt="aikelo"><p>made to live in. Kleding uit eigen schetsen, gemaakt om in te leven, niet om in te bewaren.</p></div>' +
-      '<div><h3>Kleding</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li><li><a href="lookbook">Lookbook</a></li><li><a href="wishlist">Wishlist</a></li></ul></div>' +
-      '<div><h3>Hulp</h3><ul><li><a href="info#verzending">Verzending</a></li><li><a href="info#retour">Retourneren</a></li><li><a href="info#maten">Maattabel</a></li><li><a href="info#faq">Veelgestelde vragen</a></li></ul></div>' +
-      '<div><h3>aikelo</h3><ul><li><a href="over">Over ons</a></li><li><a href="contact">Contact</a></li><li><a href="https://instagram.com/' + esc(CFG.instagram) + '" rel="noopener" target="_blank">Instagram</a></li><li><a href="voorwaarden">Voorwaarden</a></li><li><a href="privacy">Privacy</a></li></ul></div>' +
+    var insta = 'https://instagram.com/' + encodeURIComponent(CFG.instagram);
+    function col(title, links) {
+      return '<div class="footer-col"><h3>' + title + '</h3><ul>' + links.map(function (l) {
+        return '<li><a href="' + l[0] + '"' + (l[2] ? ' target="_blank" rel="noopener"' : '') + '>' + l[1] + '</a></li>';
+      }).join('') + '</ul></div>';
+    }
+    return '<footer class="site-footer"><div class="footer-inner">' +
+      '<div class="footer-brand">' +
+      '<a href="./" aria-label="aikelo, naar de homepagina"><img class="footer-logo" src="img/logo.svg" alt="aikelo"></a>' +
+      '<div class="socials">' +
+      '<a href="' + insta + '" target="_blank" rel="noopener" aria-label="aikelo op Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>' +
+      '<a href="mailto:' + esc(CFG.email) + '" aria-label="Mail aikelo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg></a>' +
+      '</div></div>' +
+      '<div class="footer-cols">' +
+      col('Kleding', [['shop', 'Alles'], ['shop?cat=hoodies', 'Hoodies'], ['shop?cat=longsleeves', 'Longsleeves'], ['lookbook', 'Lookbook']]) +
+      col('Aikelo', [['over', 'Over ons'], ['wishlist', 'Wishlist'], [insta, 'Instagram', true]]) +
+      col('Saaie dingen', [['info#retour', 'Retourneren &amp; ruilen'], ['voorwaarden', 'Voorwaarden'], ['privacy', 'Privacy']]) +
+      col('Hulp', [['info#verzending', 'Verzending'], ['info#maten', 'Maattabel'], ['info#faq', 'Veelgestelde vragen'], ['contact', 'Contact']]) +
       '</div>' +
-      '<img class="footer-word" src="img/logo.svg" alt="" aria-hidden="true">' +
-      '<div class="footer-bottom"><span>© ' + y + ' AIKELO</span><span>MADE TO LIVE IN</span></div>' +
+      '<p class="footer-copy">© ' + y + ' Aikelo · made to live in</p>' +
       '</div></footer>';
   }
 
