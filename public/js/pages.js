@@ -10,7 +10,7 @@
   P.home = function () {
     var a = A();
     var picks = ['longsleeve-echo', 'hoodie-holle-letters', 'longsleeve-stuiterend', 'zip-verticaal'];
-    var colors = { 'longsleeve-echo': 'beige', 'hoodie-holle-letters': 'navy', 'longsleeve-stuiterend': 'bordeaux', 'zip-verticaal': 'grijs' };
+    var colors = { 'longsleeve-echo': 'wit', 'hoodie-holle-letters': 'navy', 'longsleeve-stuiterend': 'bordeaux', 'zip-verticaal': 'grijs' };
     a.$('#featured').innerHTML = picks.map(function (id) { return window.AIKELO_CARD(a.product(id), colors[id]); }).join('');
   };
 
@@ -24,7 +24,7 @@
     catBar.innerHTML = [['all', 'Alles']].concat(Object.keys(CATS).map(function (k) { return [k, CATS[k].name]; }))
       .map(function (c) { return '<button class="chip" type="button" data-cat="' + c[0] + '">' + a.esc(c[1]) + '</button>'; }).join('');
     var usedColors = [];
-    PRODUCTS.forEach(function (p) { p.colors.forEach(function (c) { if (usedColors.indexOf(c) < 0 && c !== 'bordeaux-beige') usedColors.push(c); }); });
+    PRODUCTS.forEach(function (p) { p.colors.forEach(function (c) { if (usedColors.indexOf(c) < 0) usedColors.push(c); }); });
     var sel = a.$('#colorFilter');
     sel.innerHTML = '<option value="all">Alle kleuren</option>' + usedColors.map(function (c) { return '<option value="' + c + '">' + COLORS[c].name + '</option>'; }).join('');
 
