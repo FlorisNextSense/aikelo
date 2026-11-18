@@ -336,3 +336,6 @@ table.sizes-t th { font-weight: 500; font-size: 12px; letter-spacing: .15em; tex
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
 @media (max-width: 520px) { .announce { font-size: 10.5px; letter-spacing: .14em; } }
+.opt-color { display: flex; align-items: center; gap: 10px; font-size: 15px; margin: 0 0 22px; }
+.opt-color .dot { width: 18px; height: 18px; }
+.opt-color b { font-weight: 500; }

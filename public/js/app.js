@@ -74,7 +74,7 @@
       '<button class="icon-btn menu-btn" type="button" aria-label="Menu openen" aria-controls="nav" aria-expanded="false">' + ICONS.menu + '</button>' +
       '<nav class="nav" id="nav" aria-label="Hoofdmenu">' +
       '<button class="icon-btn nav-close" type="button" aria-label="Menu sluiten">' + ICONS.close + '</button>' +
-      a('shop', 'Shop') + a('shop?cat=longsleeves', 'Longsleeves') + a('shop?cat=hoodies', 'Hoodies') + a('over', 'Over aikelo') + a('contact', 'Contact') +
+      a('shop', 'Kleding') + a('shop?cat=hoodies', 'Hoodies') + a('shop?cat=longsleeves', 'Longsleeves') + a('over', 'Over aikelo') + a('contact', 'Contact') +
       '</nav>' +
       '<a class="brand" href="./" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
       '<div class="header-actions"><button class="icon-btn" type="button" id="cartBtn" aria-label="Winkelmandje openen" aria-controls="cart">' + ICONS.bag + '<span class="cart-count" id="cartCount" hidden>0</span></button></div>' +
@@ -86,7 +86,7 @@
     return '<footer class="site-footer"><div class="wrap">' +
       '<div class="footer-grid">' +
       '<div><img class="footer-logo" src="img/logo.svg" alt="aikelo"><p>made to live in. Kleding uit eigen schetsen, gemaakt om in te leven, niet om in te bewaren.</p></div>' +
-      '<div><h3>Shop</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li></ul></div>' +
+      '<div><h3>Kleding</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li></ul></div>' +
       '<div><h3>Hulp</h3><ul><li><a href="info#verzending">Verzending</a></li><li><a href="info#retour">Retourneren</a></li><li><a href="info#maten">Maattabel</a></li><li><a href="info#faq">Veelgestelde vragen</a></li></ul></div>' +
       '<div><h3>aikelo</h3><ul><li><a href="over">Over ons</a></li><li><a href="contact">Contact</a></li><li><a href="https://instagram.com/' + esc(CFG.instagram) + '" rel="noopener" target="_blank">Instagram</a></li><li><a href="voorwaarden">Voorwaarden</a></li><li><a href="privacy">Privacy</a></li></ul></div>' +
       '</div>' +
@@ -171,8 +171,7 @@
       '<img class="front" src="' + img(p, color, 'voor') + '" alt="' + esc(p.name + ' in ' + COLORS[color].name + ', voorkant') + '" loading="lazy">' +
       '<img class="back" src="' + img(p, color, 'achter') + '" alt="" loading="lazy"></div>' +
       '<div class="card-body"><div class="card-title"><span>' + esc(p.name) + '</span><span>' + money(p.price) + '</span></div>' +
-      '<div class="card-sub">' + esc(CATS[p.cat].name) + ' · ' + p.colors.length + (p.colors.length === 1 ? ' kleur' : ' kleuren') + '</div>' +
-      '<div class="dots" aria-hidden="true">' + p.colors.map(function (c) { return '<span class="dot" style="background:' + COLORS[c].hex + '"></span>'; }).join('') + '</div>' +
+      '<div class="card-sub">' + esc(CATS[p.cat].name) + ' · ' + esc(COLORS[color].name) + '</div>' +
       '</div></a>';
   }
   window.AIKELO_CARD = card;

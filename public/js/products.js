@@ -24,8 +24,8 @@ window.AIKELO_COLORS = {
 };
 
 window.AIKELO_CATEGORIES = {
-  longsleeves: { name: 'Longsleeves', blurb: 'Zware katoenen longsleeves met print voor en achter.' },
-  hoodies:     { name: 'Hoodies',     blurb: 'Ruime, zachte hoodies met een grote print op de rug.' }
+  hoodies:     { name: 'Hoodies',     blurb: 'Ruime, zachte hoodies met een grote print op de rug.' },
+  longsleeves: { name: 'Longsleeves', blurb: 'Longsleeves met print voor en achter.' }
 };
 
 (function () {
@@ -98,4 +98,20 @@ window.AIKELO_CATEGORIES = {
       isNew: false
     }
   ];
+
+  // Elke kleur wordt een los product in de lijst (bijv. Longsleeve Echo in bordeaux)
+  var flat = [];
+  window.AIKELO_PRODUCTS.forEach(function (p) {
+    p.colors.forEach(function (c) {
+      var v = {};
+      for (var k in p) v[k] = p[k];
+      v.id = p.id + '-' + c;
+      v.base = p.id;
+      v.colors = [c];
+      flat.push(v);
+    });
+  });
+  // volgorde in de lijst: eerst hoodies, dan longsleeves
+  flat.sort(function (x, y) { return (x.cat === 'hoodies' ? 0 : 1) - (y.cat === 'hoodies' ? 0 : 1); });
+  window.AIKELO_PRODUCTS = flat;
 })();

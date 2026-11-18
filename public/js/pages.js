@@ -6,52 +6,30 @@
   var CFG = window.AIKELO_CONFIG, COLORS = window.AIKELO_COLORS, CATS = window.AIKELO_CATEGORIES, PRODUCTS = window.AIKELO_PRODUCTS;
   function qs(name) { return new URLSearchParams(location.search).get(name); }
 
-  // ---------- home ----------
-  P.home = function () {
-    var a = A();
-    var picks = ['longsleeve-echo', 'hoodie-holle-letters', 'longsleeve-stuiterend', 'hoodie-verticaal'];
-    var colors = { 'longsleeve-echo': 'groen', 'hoodie-holle-letters': 'bordeaux', 'longsleeve-stuiterend': 'wit', 'hoodie-verticaal': 'navy' };
-    a.$('#featured').innerHTML = picks.map(function (id) { return window.AIKELO_CARD(a.product(id), colors[id]); }).join('');
-  };
-
-  // ---------- shop ----------
-  P.shop = function () {
-    var a = A(), grid = a.$('#grid'), cat = qs('cat') || 'all', color = qs('kleur') || 'all', sort = 'featured';
+  // ---------- kledinglijst (home + shop) ----------
+  // Eén lijst met alle kleding en een filter op soort.
+  function clothingList(opts) {
+    var a = A(), grid = a.$('#grid'), cat = qs('cat') || 'all';
     if (cat !== 'all' && !CATS[cat]) cat = 'all';
-    if (color !== 'all' && !COLORS[color]) color = 'all';
-
     var catBar = a.$('#catFilters');
     catBar.innerHTML = [['all', 'Alles']].concat(Object.keys(CATS).map(function (k) { return [k, CATS[k].name]; }))
       .map(function (c) { return '<button class="chip" type="button" data-cat="' + c[0] + '">' + a.esc(c[1]) + '</button>'; }).join('');
-    var usedColors = [];
-    PRODUCTS.forEach(function (p) { p.colors.forEach(function (c) { if (usedColors.indexOf(c) < 0) usedColors.push(c); }); });
-    var sel = a.$('#colorFilter');
-    sel.innerHTML = '<option value="all">Alle kleuren</option>' + usedColors.map(function (c) { return '<option value="' + c + '">' + COLORS[c].name + '</option>'; }).join('');
-
     function render() {
-      var list = PRODUCTS.filter(function (p) { return (cat === 'all' || p.cat === cat) && (color === 'all' || p.colors.indexOf(color) > -1); });
-      if (sort === 'low') list = list.slice().sort(function (x, y) { return x.price - y.price; });
-      if (sort === 'high') list = list.slice().sort(function (x, y) { return y.price - x.price; });
-      if (sort === 'new') list = list.slice().sort(function (x, y) { return (y.isNew ? 1 : 0) - (x.isNew ? 1 : 0); });
-      grid.innerHTML = list.length ? list.map(function (p) { return window.AIKELO_CARD(p, color !== 'all' ? color : null); }).join('')
-        : '<p class="note">Geen producten gevonden in deze combinatie.</p>';
+      var list = PRODUCTS.filter(function (p) { return cat === 'all' || p.cat === cat; });
+      grid.innerHTML = list.map(function (p) { return window.AIKELO_CARD(p); }).join('');
       a.$$('[data-cat]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-cat') === cat)); });
-      a.$('#shopTitle').textContent = cat === 'all' ? 'Alle kleding' : CATS[cat].name;
-      a.$('#shopLead').textContent = cat === 'all' ? 'Longsleeves en hoodies uit onze eerste collectie. Elk ontwerp begon als schets.' : CATS[cat].blurb;
-      a.$('#count').textContent = list.length + ' product' + (list.length === 1 ? '' : 'en');
-      document.title = (cat === 'all' ? 'Shop' : CATS[cat].name) + ' · AIKELO';
-      sel.value = color;
-      var params = new URLSearchParams();
-      if (cat !== 'all') params.set('cat', cat);
-      if (color !== 'all') params.set('kleur', color);
-      history.replaceState(null, '', 'shop' + (params.toString() ? '?' + params : ''));
+      var count = a.$('#count'); if (count) count.textContent = list.length + ' product' + (list.length === 1 ? '' : 'en');
+      if (opts.page) {
+        document.title = (cat === 'all' ? 'Kleding' : CATS[cat].name) + ' · AIKELO';
+        history.replaceState(null, '', 'shop' + (cat !== 'all' ? '?cat=' + cat : ''));
+      }
       window.AIKELO_REVEAL();
     }
     catBar.addEventListener('click', function (e) { var b = e.target.closest('[data-cat]'); if (b) { cat = b.getAttribute('data-cat'); render(); } });
-    sel.addEventListener('change', function () { color = sel.value; render(); });
-    a.$('#sort').addEventListener('change', function (e) { sort = e.target.value; render(); });
     render();
-  };
+  }
+  P.home = function () { clothingList({ page: false }); };
+  P.shop = function () { clothingList({ page: true }); };
 
   // ---------- product ----------
   P.product = function () {
@@ -80,9 +58,9 @@
       '<div class="price">' + a.money(p.price) + ' <small>incl. btw</small></div>' +
       '<p>' + a.esc(p.short) + '</p>' +
       '<form id="buyForm" novalidate>' +
-      '<fieldset class="opt"><legend>Kleur <b id="colorName"></b></legend><div class="swatches">' +
+      (p.colors.length > 1 ? '<fieldset class="opt"><legend>Kleur <b id="colorName"></b></legend><div class="swatches">' +
       p.colors.map(function (c) { return '<label class="swatch" title="' + COLORS[c].name + '"><input type="radio" name="color" value="' + c + '"' + (c === color ? ' checked' : '') + '><span style="background:' + COLORS[c].hex + '"></span><span class="sr-only">' + COLORS[c].name + '</span></label>'; }).join('') +
-      '</div></fieldset>' +
+      '</div></fieldset>' : '<p class="opt-color"><span class="dot" style="background:' + COLORS[color].hex + '"></span>Kleur: <b id="colorName"></b></p>') +
       '<fieldset class="opt"><legend>Maat <button type="button" class="size-guide-btn" id="sizeGuideBtn">Maattabel</button></legend><div class="sizes">' +
       p.sizes.map(function (s) { return '<label class="size"><input type="radio" name="size" value="' + s + '"><span>' + s + '</span></label>'; }).join('') +
       '</div></fieldset>' +
@@ -145,7 +123,8 @@
       if (m && (e.target === m || e.target.closest('[data-close-modal]'))) m.classList.remove('show');
     });
 
-    var related = PRODUCTS.filter(function (x) { return x.id !== p.id; })
+    var seen = {};
+    var related = PRODUCTS.filter(function (x) { if (x.base === p.base || seen[x.base]) return false; seen[x.base] = true; return true; })
       .sort(function (x, y) { return (y.cat === p.cat) - (x.cat === p.cat); }).slice(0, 4);
     a.$('#related').innerHTML = related.map(function (x) { return window.AIKELO_CARD(x); }).join('');
   };
