@@ -113,7 +113,7 @@
       '<button class="icon-btn menu-btn" type="button" aria-label="Menu openen" aria-controls="nav" aria-expanded="false">' + ICONS.menu + '</button>' +
       '<nav class="nav" id="nav" aria-label="Hoofdmenu">' +
       '<button class="icon-btn nav-close" type="button" aria-label="Menu sluiten">' + ICONS.close + '</button>' +
-      a('./', 'Home') + a('shop', 'Kleding') + a('lookbook', 'Lookbook') + a('over', 'Over aikelo') + a('contact', 'Contact') +
+      a('./', 'Home') + a('shop', 'Kleding') + a('lookbook', 'Lookbook') + a('over', 'Ons verhaal') + a('contact', 'Contact') +
       '</nav>' +
       '<a class="brand" href="./" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
       '<div class="header-actions">' +
@@ -141,7 +141,7 @@
       '</div></div>' +
       '<div class="footer-cols">' +
       col('Kleding', [['shop', 'Alles'], ['shop?cat=hoodies', 'Hoodies'], ['shop?cat=longsleeves', 'Longsleeves'], ['lookbook', 'Lookbook']]) +
-      col('Aikelo', [['over', 'Over ons'], ['wishlist', 'Wishlist'], [insta, 'Instagram', true]]) +
+      col('Aikelo', [['over', 'Ons verhaal'], ['wishlist', 'Wishlist'], [insta, 'Instagram', true]]) +
       col('Saaie dingen', [['info#retour', 'Retourneren &amp; ruilen'], ['voorwaarden', 'Voorwaarden'], ['privacy', 'Privacy']]) +
       col('Hulp', [['info#verzending', 'Verzending'], ['info#maten', 'Maattabel'], ['info#faq', 'Veelgestelde vragen'], ['contact', 'Contact']]) +
       '</div>' +
