@@ -162,8 +162,8 @@
         rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + ' cm</td><td>' + r[2] + ' cm</td><td>' + r[3] + ' cm</td></tr>'; }).join('') + '</tbody></table></div>';
     }
     return '<p class="note">Gemeten plat op tafel. Borst is de breedte van oksel tot oksel.</p>' +
-      t('Longsleeves', [['XS', 48, 66, 60], ['S', 51, 69, 61], ['M', 54, 72, 62], ['L', 57, 74, 63], ['XL', 60, 76, 64], ['XXL', 63, 78, 65]]) +
-      t('Hoodies &amp; zip-ups', [['XS', 56, 64, 56], ['S', 59, 67, 57], ['M', 62, 70, 58], ['L', 65, 72, 59], ['XL', 68, 74, 60], ['XXL', 71, 76, 61]]);
+      t('Longsleeves', [['S', 51, 69, 61], ['M', 54, 72, 62], ['L', 57, 74, 63], ['XL', 60, 76, 64]]) +
+      t('Hoodies &amp; zip-ups', [['S', 59, 67, 57], ['M', 62, 70, 58], ['L', 65, 72, 59], ['XL', 68, 74, 60]]);
   }
   window.AIKELO_SIZE_TABLES = sizeTables;
   P.info = function () { A().$('#sizeTables').innerHTML = sizeTables(); };

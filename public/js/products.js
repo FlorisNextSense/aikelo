@@ -6,8 +6,8 @@
 
 window.AIKELO_CONFIG = {
   // ⚠️ Vul je eigen gegevens in
-  email: 'info@aikelo.nl',          // hier komen bestellingen en vragen binnen
-  instagram: 'aikelo',             // zonder @
+  email: 'aikelo.clothing@gmail.com',         // hier komen bestellingen en vragen binnen
+  instagram: 'aikelo.clothing',            // zonder @
   shippingCost: 4.95,              // verzendkosten NL
   freeShippingFrom: 100,           // gratis verzending vanaf dit bedrag
   deliveryText: '3 tot 5 werkdagen',
@@ -34,13 +34,13 @@ window.AIKELO_CATEGORIES = {
 };
 
 (function () {
-  var LS_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-  var HOODIE_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+  var LS_SIZES = ['S', 'M', 'L', 'XL'];
+  var HOODIE_SIZES = ['S', 'M', 'L', 'XL'];
 
   window.AIKELO_PRODUCTS = [
     {
       id: 'longsleeve-stuiterend', code: 'A', cat: 'longsleeves',
-      name: 'Longsleeve Stuiterend', price: 45, img: 'ls-stuiterend',
+      name: 'Longsleeve Stuiterend', price: 39.95, img: 'ls-stuiterend',
       colors: ['beige', 'navy', 'bordeaux', 'wit', 'groen'], sizes: LS_SIZES,
       short: 'Losse letters die over de rug stuiteren, een molentje bij de zoom.',
       desc: 'De letters van aikelo vallen los over je rug, alsof ze net zijn neergegooid. Onderaan de rug een klein molentje tussen “made to” en “live in”. Voor een klein aikelo-woordje op de borst en “made to live in · 2026” bij de zoom.',
@@ -48,7 +48,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'longsleeve-echo', code: 'B', cat: 'longsleeves',
-      name: 'Longsleeve Echo', price: 45, img: 'ls-echo',
+      name: 'Longsleeve Echo', price: 39.95, img: 'ls-echo',
       colors: ['beige', 'navy', 'bordeaux', 'wit', 'groen'], sizes: LS_SIZES,
       short: 'Vervagende rijen aikelo op de rug, een fietsje bij de zoom.',
       desc: 'Vier rijen aikelo die steeds lichter worden, als een echo over je rug. Bij de zoom een fietsje. Voor een klein logo op de borst en “made to live in · 2026” onderaan.',
@@ -56,7 +56,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'longsleeve-stempel', code: 'J', cat: 'longsleeves',
-      name: 'Longsleeve Stempel', price: 45, img: 'ls-stempel',
+      name: 'Longsleeve Stempel', price: 39.95, img: 'ls-stempel',
       colors: ['beige', 'navy', 'bordeaux', 'wit', 'groen'], sizes: LS_SIZES,
       short: 'Een stempel “longsleeve no. 1” op de rug, een tulp bij de zoom.',
       desc: 'Op de rug een stempel: longsleeve no. 1, aikelo, made to live in · 2026. Bij de zoom een tulp. Voor alleen een klein aikelo bij de zoom. Rustig van voren, een verhaal op je rug.',
@@ -64,7 +64,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'longsleeve-streep', code: 'S', cat: 'longsleeves',
-      name: 'Longsleeve Streep', price: 49, img: 'streep',
+      name: 'Longsleeve Streep', price: 39.95, img: 'streep',
       colors: ['navy', 'groen', 'grijs'], sizes: LS_SIZES,
       short: 'Wit met gekleurde strepen, print direct over de strepen.',
       desc: 'Een klassieke streep in wit met navy, groen of grijs. De aikelo-print staat direct over de strepen heen: zwart op navy en groen, rood op grijs.',
@@ -72,7 +72,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'hoodie-holle-letters', code: '5', cat: 'hoodies',
-      name: 'Hoodie Made to live in', price: 69, img: 'hoodie-holle-letters',
+      name: 'Hoodie Made to live in', price: 64.99, img: 'hoodie-holle-letters',
       colors: ['beige', 'navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Grote letters “made to live in” van elleboog tot elleboog.',
       desc: 'MADE TO LIVE IN in grote letters in een boog over de hele rug, van elleboog tot elleboog, met 2026 eronder. Klein aikelo op de borst.',
@@ -80,7 +80,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'hoodie-nummer', code: '6', cat: 'hoodies',
-      name: 'Hoodie 01.', price: 69, img: 'hoodie-nummer',
+      name: 'Hoodie 01.', price: 64.99, img: 'hoodie-nummer',
       colors: ['espresso', 'navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Een groot “01.” op de rug, kleine tekst bij de zoom.',
       desc: 'Onze eerste. Een groot 01. op de rug met aikelo eronder, en voor “made to live in · 2026” bij de zoom.',
@@ -88,7 +88,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'hoodie-verticaal', code: '11', cat: 'hoodies',
-      name: 'Hoodie Verticaal', price: 69, img: 'hoodie-verticaal',
+      name: 'Hoodie Verticaal', price: 64.99, img: 'hoodie-verticaal',
       colors: ['zwart', 'navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Een enorm aikelo verticaal over de rug.',
       desc: 'aikelo in enorme letters van boven naar beneden over je rug. Voor een klein woordje bij de zoom.',
@@ -96,7 +96,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'hoodie-poster', code: '14', cat: 'hoodies',
-      name: 'Hoodie Poster', price: 69, img: 'hoodie-poster',
+      name: 'Hoodie Poster', price: 64.99, img: 'hoodie-poster',
       colors: ['bordeaux-beige', 'navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Grote regels tekst op de rug, als een poster.',
       desc: '“made to live in” in grote regels over de rug, opgebouwd als een poster. Voor een klein logo op de borst.',
@@ -104,7 +104,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'zip-holle-letters', code: '5', cat: 'zip',
-      name: 'Zip-up Made to live in', price: 79, img: 'zip-holle-letters',
+      name: 'Zip-up Made to live in', price: 74.99, img: 'zip-holle-letters',
       colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Rits, en “made to live in” in een boog over de rug.',
       desc: 'De Made to live in-hoodie met een rits. Grote letters in een boog over de rug, 2026 eronder.',
@@ -112,7 +112,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'zip-nummer', code: '6', cat: 'zip',
-      name: 'Zip-up 01.', price: 79, img: 'zip-nummer',
+      name: 'Zip-up 01.', price: 74.99, img: 'zip-nummer',
       colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Rits, en een groot “01.” op de rug.',
       desc: 'De 01.-hoodie met een rits. Groot 01. op de rug met aikelo eronder.',
@@ -120,7 +120,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'zip-verticaal', code: '11', cat: 'zip',
-      name: 'Zip-up Verticaal', price: 79, img: 'zip-verticaal',
+      name: 'Zip-up Verticaal', price: 74.99, img: 'zip-verticaal',
       colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Rits, en aikelo verticaal over de rug.',
       desc: 'De Verticaal-hoodie met een rits. Een enorm aikelo van boven naar beneden over de rug.',
@@ -128,7 +128,7 @@ window.AIKELO_CATEGORIES = {
     },
     {
       id: 'zip-poster', code: '14', cat: 'zip',
-      name: 'Zip-up Poster', price: 79, img: 'zip-poster',
+      name: 'Zip-up Poster', price: 74.99, img: 'zip-poster',
       colors: ['navy', 'bordeaux', 'grijs', 'groen'], sizes: HOODIE_SIZES,
       short: 'Rits, en grote regels tekst op de rug.',
       desc: 'De Poster-hoodie met een rits. “made to live in” in grote regels over de rug.',
