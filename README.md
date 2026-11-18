@@ -21,6 +21,9 @@ Open daarna http://localhost:8080.
 | Productpagina (kleur, maat, aantal, voor- en achterkant, zoom, maattabel) | `public/product.html?id=…` |
 | Winkelmandje (schuift in vanaf rechts op elke pagina, bewaard in de browser) | `public/js/app.js` |
 | Afrekenen → bedankpagina | `public/afrekenen.html`, `public/bedankt.html` |
+| Lookbook (elk ontwerp groot, voor- en achterkant) | `public/lookbook.html` |
+| Wishlist (hartje op elk product, bewaard in de browser) | `public/wishlist.html` |
+| Zoeken (knop in de header, zoekt op naam, soort en kleur) | `public/js/app.js` |
 | Over, Contact, Klantenservice (verzending, retour, maten, FAQ), Voorwaarden, Privacy, 404 | `public/*.html` |
 
 ## Aanpassen

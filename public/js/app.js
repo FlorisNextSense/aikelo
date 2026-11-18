@@ -1,4 +1,4 @@
-/* AIKELO — site, winkelmandje en afrekenen */
+/* AIKELO — site, winkelmandje, wishlist, zoeken en afrekenen */
 (function () {
   'use strict';
 
@@ -7,6 +7,7 @@
   var CATS = window.AIKELO_CATEGORIES;
   var PRODUCTS = window.AIKELO_PRODUCTS;
   var CART_KEY = 'aikelo-cart-v1';
+  var WISH_KEY = 'aikelo-wishlist-v1';
 
   // ---------- helpers ----------
   function $(sel, root) { return (root || document).querySelector(sel); }
@@ -24,6 +25,8 @@
 
   var ICONS = {
     bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+    heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
     menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     truck: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>',
@@ -61,23 +64,64 @@
   };
   window.AIKELO_CART = Cart;
 
+  // ---------- wishlist ----------
+  var Wish = {
+    ids: [],
+    load: function () {
+      var list = [];
+      try { list = JSON.parse(store(true, WISH_KEY)) || []; } catch (e) { list = []; }
+      this.ids = list.filter(function (id) { return typeof id === 'string' && product(id); });
+    },
+    has: function (id) { return this.ids.indexOf(id) > -1; },
+    toggle: function (id) {
+      var on = !this.has(id);
+      if (on) this.ids.push(id); else this.ids.splice(this.ids.indexOf(id), 1);
+      store(false, WISH_KEY, JSON.stringify(this.ids));
+      renderWish();
+      return on;
+    },
+    products: function () { return this.ids.map(product).filter(Boolean); }
+  };
+  window.AIKELO_WISH = Wish;
+
+  function renderWish() {
+    var n = Wish.ids.length;
+    $$('[data-wish-count]').forEach(function (el) { el.textContent = n; });
+    $$('[data-wish]').forEach(function (b) {
+      var on = Wish.has(b.getAttribute('data-wish'));
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    document.dispatchEvent(new CustomEvent('wish:change'));
+  }
+
   // ---------- layout ----------
+  function ticker() {
+    var items = ['Gratis verzending vanaf ' + money(CFG.freeShippingFrom), '14 dagen bedenktijd', 'Collectie No. 1 nu live', 'made to live in'];
+    var run = items.map(function (t) { return '<span>' + esc(t) + '</span><span aria-hidden="true">·</span>'; }).join('');
+    return '<div class="ticker"><p class="sr-only">' + esc(items.join(' · ')) + '</p>' +
+      '<div class="ticker-track" aria-hidden="true">' + run + run + run + run + '</div></div>';
+  }
+
   function header() {
     // laatste stuk van het pad, zodat het ook in een submap (GitHub Pages) werkt
     var path = location.pathname.replace(/\.html$/, '').split('/').pop();
     var here = (path === '' || path === 'index') ? './' : path;
     function a(href, label) { return '<a href="' + href + '"' + (here === href ? ' aria-current="page"' : '') + '>' + label + '</a>'; }
-    var announce = 'Gratis verzending vanaf ' + money(CFG.freeShippingFrom) + ' · 14 dagen bedenktijd';
-    return '<div class="announce">' + esc(announce) + '</div>' +
-      '<header class="site-header"><div class="wrap header-row">' +
+    return '<div class="topbar">' + ticker() +
+      '<header class="site-header"><div class="header-row">' +
       '<button class="icon-btn menu-btn" type="button" aria-label="Menu openen" aria-controls="nav" aria-expanded="false">' + ICONS.menu + '</button>' +
       '<nav class="nav" id="nav" aria-label="Hoofdmenu">' +
       '<button class="icon-btn nav-close" type="button" aria-label="Menu sluiten">' + ICONS.close + '</button>' +
-      a('./', 'Home') + a('shop', 'Kleding') + a('over', 'Over aikelo') + a('contact', 'Contact') +
+      a('./', 'Home') + a('shop', 'Kleding') + a('lookbook', 'Lookbook') + a('over', 'Over aikelo') + a('contact', 'Contact') +
       '</nav>' +
       '<a class="brand" href="./" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
-      '<div class="header-actions"><button class="icon-btn" type="button" id="cartBtn" aria-label="Winkelmandje openen" aria-controls="cart">' + ICONS.bag + '<span class="cart-count" id="cartCount" hidden>0</span></button></div>' +
-      '</div></header>';
+      '<div class="header-actions">' +
+      '<button class="hd-btn" type="button" id="searchBtn" aria-label="Zoeken" aria-controls="search">' + ICONS.search + '<span class="hd-label">Zoeken</span></button>' +
+      '<a class="hd-btn" href="wishlist" aria-label="Wishlist">' + ICONS.heart + '<span class="hd-label">Wishlist</span><span class="hd-count" data-wish-count>0</span></a>' +
+      '<button class="hd-btn" type="button" id="cartBtn" aria-label="Winkelmandje openen" aria-controls="cart">' + ICONS.bag + '<span class="hd-label">Mandje</span><span class="hd-count" id="cartCount">0</span></button>' +
+      '</div>' +
+      '</div></header></div>';
   }
 
   function footer() {
@@ -85,21 +129,28 @@
     return '<footer class="site-footer"><div class="wrap">' +
       '<div class="footer-grid">' +
       '<div><img class="footer-logo" src="img/logo.svg" alt="aikelo"><p>made to live in. Kleding uit eigen schetsen, gemaakt om in te leven, niet om in te bewaren.</p></div>' +
-      '<div><h3>Kleding</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li></ul></div>' +
+      '<div><h3>Kleding</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li><li><a href="lookbook">Lookbook</a></li><li><a href="wishlist">Wishlist</a></li></ul></div>' +
       '<div><h3>Hulp</h3><ul><li><a href="info#verzending">Verzending</a></li><li><a href="info#retour">Retourneren</a></li><li><a href="info#maten">Maattabel</a></li><li><a href="info#faq">Veelgestelde vragen</a></li></ul></div>' +
       '<div><h3>aikelo</h3><ul><li><a href="over">Over ons</a></li><li><a href="contact">Contact</a></li><li><a href="https://instagram.com/' + esc(CFG.instagram) + '" rel="noopener" target="_blank">Instagram</a></li><li><a href="voorwaarden">Voorwaarden</a></li><li><a href="privacy">Privacy</a></li></ul></div>' +
       '</div>' +
+      '<img class="footer-word" src="img/logo.svg" alt="" aria-hidden="true">' +
       '<div class="footer-bottom"><span>© ' + y + ' AIKELO</span><span>MADE TO LIVE IN</span></div>' +
       '</div></footer>';
   }
 
-  function drawer() {
+  function overlays() {
     return '<div class="overlay" id="overlay"></div>' +
       '<aside class="drawer" id="cart" aria-label="Winkelmandje" aria-hidden="true" tabindex="-1">' +
       '<div class="drawer-head"><h2>Winkelmandje</h2><button class="icon-btn" type="button" data-close-cart aria-label="Winkelmandje sluiten">' + ICONS.close + '</button></div>' +
       '<div class="drawer-body" id="cartBody"></div>' +
       '<div class="drawer-foot" id="cartFoot"></div>' +
       '</aside>' +
+      '<div class="search-panel" id="search" role="dialog" aria-modal="true" aria-label="Zoeken" aria-hidden="true">' +
+      '<div class="search-inner"><div class="search-bar">' + ICONS.search +
+      '<label class="sr-only" for="searchInput">Zoek in de kleding</label>' +
+      '<input id="searchInput" type="search" placeholder="Zoek op hoodie, longsleeve, kleur…" autocomplete="off">' +
+      '<button class="icon-btn" type="button" id="searchClose" aria-label="Zoeken sluiten">' + ICONS.close + '</button></div>' +
+      '<div class="search-results" id="searchResults" aria-live="polite"></div></div></div>' +
       '<div class="toast" id="toast" role="status" aria-live="polite"></div>';
   }
 
@@ -120,12 +171,12 @@
   function renderCart() {
     var count = Cart.count();
     var badge = $('#cartCount');
-    if (badge) { badge.textContent = count; badge.hidden = count === 0; }
+    if (badge) badge.textContent = count;
     var cb = $('#cartBtn'); if (cb) cb.setAttribute('aria-label', 'Winkelmandje openen, ' + count + ' artikel' + (count === 1 ? '' : 'en'));
     var body = $('#cartBody'), foot = $('#cartFoot');
     if (!body) return;
     if (!Cart.items.length) {
-      body.innerHTML = '<div class="empty"><p>Je winkelmandje is nog leeg.</p><a class="btn" href="shop">Naar de shop</a></div>';
+      body.innerHTML = '<div class="empty"><p>Je winkelmandje is nog leeg.</p><a class="btn" href="shop">Naar de kleding</a></div>';
       foot.innerHTML = '';
     } else {
       body.innerHTML = Cart.items.map(function (it, i) { return lineItemHTML(it, i, true); }).join('');
@@ -142,18 +193,50 @@
   }
 
   var lastFocus = null;
+  function lockScroll(on) { document.body.style.overflow = on ? 'hidden' : ''; }
   function openCart() {
     lastFocus = document.activeElement;
     $('#cart').classList.add('open'); $('#cart').setAttribute('aria-hidden', 'false');
-    $('#overlay').classList.add('show'); document.body.style.overflow = 'hidden';
+    $('#overlay').classList.add('show'); lockScroll(true);
     setTimeout(function () { $('#cart [data-close-cart]').focus(); }, 50);
   }
   function closeCart() {
+    if (!$('#cart').classList.contains('open')) return;
     $('#cart').classList.remove('open'); $('#cart').setAttribute('aria-hidden', 'true');
-    $('#overlay').classList.remove('show'); document.body.style.overflow = '';
+    $('#overlay').classList.remove('show'); lockScroll(false);
     if (lastFocus) lastFocus.focus();
   }
   window.AIKELO_OPEN_CART = openCart;
+
+  // ---------- zoeken ----------
+  function searchResults(q) {
+    var box = $('#searchResults');
+    q = q.trim().toLowerCase();
+    var list = PRODUCTS.filter(function (p) {
+      if (!q) return true;
+      var hay = [p.name, CATS[p.cat].name, COLORS[p.colors[0]].name, p.short].join(' ').toLowerCase();
+      return q.split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; });
+    });
+    box.innerHTML = (q ? '<p class="search-count">' + list.length + ' resultat' + (list.length === 1 ? '' : 'en') + '</p>' : '<p class="search-count">Alle kleding</p>') +
+      (list.length ? '<div class="search-grid">' + list.map(function (p) {
+        var c = p.colors[0];
+        return '<a class="search-item" href="' + url(p, c) + '"><span class="search-thumb"><img src="' + img(p, c, 'achter') + '" alt="" loading="lazy"></span>' +
+          '<span><b>' + esc(p.name) + '</b><small>' + esc(CATS[p.cat].name) + ' · ' + esc(COLORS[c].name) + ' · ' + money(p.price) + '</small></span></a>';
+      }).join('') + '</div>' : '<p class="note">Niets gevonden. Probeer “hoodie”, “streep” of een kleur zoals “groen”.</p>');
+  }
+  function openSearch() {
+    lastFocus = document.activeElement;
+    var s = $('#search'); s.classList.add('open'); s.setAttribute('aria-hidden', 'false');
+    $('#overlay').classList.add('show'); lockScroll(true);
+    searchResults($('#searchInput').value);
+    setTimeout(function () { $('#searchInput').focus(); }, 50);
+  }
+  function closeSearch() {
+    var s = $('#search'); if (!s.classList.contains('open')) return;
+    s.classList.remove('open'); s.setAttribute('aria-hidden', 'true');
+    $('#overlay').classList.remove('show'); lockScroll(false);
+    if (lastFocus) lastFocus.focus();
+  }
 
   var toastTimer;
   function toast(msg) {
@@ -163,15 +246,22 @@
   window.AIKELO_TOAST = toast;
 
   // ---------- product card ----------
+  function wishBtn(p, extraClass) {
+    var on = Wish.has(p.id);
+    return '<button class="wish-btn' + (extraClass ? ' ' + extraClass : '') + (on ? ' on' : '') + '" type="button" data-wish="' + esc(p.id) + '" aria-pressed="' + on + '" aria-label="' + esc(p.name + ' in ' + COLORS[p.colors[0]].name) + ' bewaren in je wishlist">' + ICONS.heart + '</button>';
+  }
+  window.AIKELO_WISH_BTN = wishBtn;
+
   function card(p, color) {
     color = color || p.colors[0];
-    return '<a class="card reveal" href="' + url(p, color) + '">' +
+    return '<div class="card reveal">' +
+      '<a class="card-link" href="' + url(p, color) + '">' +
       '<div class="card-media">' + (p.isNew ? '<span class="tag">Nieuw</span>' : '') +
       '<img class="front" src="' + img(p, color, 'voor') + '" alt="' + esc(p.name + ' in ' + COLORS[color].name + ', voorkant') + '" loading="lazy">' +
       '<img class="back" src="' + img(p, color, 'achter') + '" alt="" loading="lazy"></div>' +
       '<div class="card-body"><div class="card-title"><span>' + esc(p.name) + '</span><span>' + money(p.price) + '</span></div>' +
       '<div class="card-sub">' + esc(CATS[p.cat].name) + ' · ' + esc(COLORS[color].name) + '</div>' +
-      '</div></a>';
+      '</div></a>' + wishBtn(p) + '</div>';
   }
   window.AIKELO_CARD = card;
 
@@ -187,15 +277,26 @@
 
   // ---------- init ----------
   function init() {
-    Cart.load();
+    Cart.load(); Wish.load();
     var h = $('#site-header'); if (h) h.outerHTML = header();
     var f = $('#site-footer'); if (f) f.outerHTML = footer();
-    document.body.insertAdjacentHTML('beforeend', drawer());
+    document.body.insertAdjacentHTML('beforeend', overlays());
     renderCart();
 
     $('#cartBtn').addEventListener('click', openCart);
-    $('#overlay').addEventListener('click', function () { closeCart(); closeNav(); });
+    $('#searchBtn').addEventListener('click', openSearch);
+    $('#searchClose').addEventListener('click', closeSearch);
+    $('#searchInput').addEventListener('input', function (e) { searchResults(e.target.value); });
+    $('#overlay').addEventListener('click', function () { closeCart(); closeNav(); closeSearch(); });
     document.addEventListener('click', function (e) {
+      var w = e.target.closest('[data-wish]');
+      if (w) {
+        e.preventDefault();
+        var p = product(w.getAttribute('data-wish'));
+        var on = Wish.toggle(p.id);
+        toast(on ? p.name + ' (' + COLORS[p.colors[0]].name + ') staat in je wishlist' : 'Uit je wishlist gehaald');
+        return;
+      }
       var t = e.target.closest('[data-close-cart],[data-inc],[data-dec],[data-rm]');
       if (!t) return;
       if (t.hasAttribute('data-close-cart')) return closeCart();
@@ -206,24 +307,30 @@
     });
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
-      if ($('#cart').classList.contains('open')) closeCart();
-      closeNav();
+      closeCart(); closeNav(); closeSearch();
       $$('.modal.show').forEach(function (m) { m.classList.remove('show'); });
     });
 
     var nav = $('#nav'), mb = $('.menu-btn');
-    function closeNav() { if (nav.classList.contains('open')) { nav.classList.remove('open'); mb.setAttribute('aria-expanded', 'false'); if (!$('#cart').classList.contains('open')) $('#overlay').classList.remove('show'); } }
-    mb.addEventListener('click', function () { nav.classList.add('open'); mb.setAttribute('aria-expanded', 'true'); $('#overlay').classList.add('show'); $('.nav-close').focus(); });
+    // menu-open tilt de header boven de donkere overlay, anders valt die over het menu heen
+    function closeNav() { if (nav.classList.contains('open')) { nav.classList.remove('open'); $('.topbar').classList.remove('menu-open'); mb.setAttribute('aria-expanded', 'false'); $('#overlay').classList.remove('show'); lockScroll(false); } }
+    mb.addEventListener('click', function () { nav.classList.add('open'); $('.topbar').classList.add('menu-open'); mb.setAttribute('aria-expanded', 'true'); $('#overlay').classList.add('show'); lockScroll(true); $('.nav-close').focus(); });
     $('.nav-close').addEventListener('click', closeNav);
 
-    var sh = $('.site-header');
-    window.addEventListener('scroll', function () { sh.classList.toggle('scrolled', window.scrollY > 4); }, { passive: true });
+    // header: transparant over de hero, vast zodra je scrolt
+    var top = $('.topbar'), hasHero = document.body.classList.contains('has-hero');
+    function onScroll() { top.classList.toggle('solid', !hasHero || window.scrollY > 40); top.classList.toggle('scrolled', window.scrollY > 4); }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
     // andere tabbladen
-    window.addEventListener('storage', function (e) { if (e.key === CART_KEY) { Cart.load(); renderCart(); } });
+    window.addEventListener('storage', function (e) {
+      if (e.key === CART_KEY) { Cart.load(); renderCart(); }
+      if (e.key === WISH_KEY) { Wish.load(); renderWish(); }
+    });
 
     var page = document.body.getAttribute('data-page');
     if (page && window.AIKELO_PAGES && window.AIKELO_PAGES[page]) window.AIKELO_PAGES[page]();
+    renderWish();
     observeReveals();
   }
 

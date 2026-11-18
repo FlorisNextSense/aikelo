@@ -29,6 +29,36 @@
     render();
   }
   P.home = function () { clothingList({ page: false }); };
+
+  // ---------- lookbook ----------
+  // Achtergrondtint per kleur, zodat elk ontwerp een eigen sfeer krijgt
+  var LB_BG = { navy: ['#D3CEC3', '#E4E0D7'], bordeaux: ['#E7E2D8', '#D6D0C4'], groen: ['#D9D5CA', '#ECE8DF'], grijs: ['#2A2A2D', '#3A3A3E'], wit: ['#BDB6A8', '#CFC9BC'] };
+  P.lookbook = function () {
+    var a = A();
+    a.$('#lookbook').innerHTML = PRODUCTS.map(function (p, i) {
+      var c = p.colors[0], bg = LB_BG[c] || ['#E7E3DB', '#D4D0C7'];
+      return '<article class="lb-look reveal' + (i % 2 ? ' flip' : '') + '">' +
+        '<div class="lb-main"><a class="lb-frame" href="' + a.url(p, c) + '" style="background:' + bg[0] + '"><img src="' + a.img(p, c, 'achter') + '" alt="' + a.esc(p.name + ' in ' + COLORS[c].name + ', achterkant') + '" loading="lazy"></a></div>' +
+        '<div class="lb-side"><a class="lb-frame" href="' + a.url(p, c) + '" style="background:' + bg[1] + '" tabindex="-1" aria-hidden="true"><img src="' + a.img(p, c, 'voor') + '" alt="" loading="lazy"></a>' +
+        '<div class="lb-caption"><div><p class="lb-no">Look ' + String(i + 1).padStart(2, '0') + ' · ' + a.esc(CATS[p.cat].name) + ' No. ' + a.esc(p.code) + '</p><p class="lb-name">' + a.esc(p.name) + ', ' + a.esc(COLORS[c].name.toLowerCase()) + '</p></div>' +
+        '<a class="link" href="' + a.url(p, c) + '">Shop deze look · ' + a.money(p.price) + '</a></div></div>' +
+        '</article>';
+    }).join('');
+  };
+
+  // ---------- wishlist ----------
+  P.wishlist = function () {
+    var a = A(), W = window.AIKELO_WISH;
+    function render() {
+      var list = W.products();
+      a.$('#wishCount').textContent = list.length + ' bewaard';
+      a.$('#wishGrid').innerHTML = list.length ? list.map(function (p) { return window.AIKELO_CARD(p); }).join('')
+        : '<div class="empty" style="grid-column:1/-1"><p>Je wishlist is nog leeg.</p><a class="btn" href="shop">Bekijk de kleding</a></div>';
+      window.AIKELO_REVEAL();
+    }
+    render();
+    document.addEventListener('wish:change', render);
+  };
   P.shop = function () { clothingList({ page: true }); };
 
   // ---------- product ----------
@@ -66,7 +96,7 @@
       '</div></fieldset>' +
       '<p class="form-msg" id="buyMsg" role="alert"></p>' +
       '<div class="buy-row"><div class="qty"><button type="button" id="qMinus" aria-label="Eén minder">−</button><output id="qVal" aria-label="Aantal">1</output><button type="button" id="qPlus" aria-label="Eén meer">+</button></div>' +
-      '<button class="btn" type="submit">In winkelmandje</button></div>' +
+      '<button class="btn" type="submit">In winkelmandje</button>' + window.AIKELO_WISH_BTN(p, 'inline') + '</div>' +
       '</form>' +
       '<ul class="perks">' +
       '<li>' + I.truck + 'Verzonden binnen ' + a.esc(CFG.deliveryText) + ', gratis vanaf ' + a.money(CFG.freeShippingFrom) + '</li>' +
