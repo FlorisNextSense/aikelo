@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afrekenen · AIKELO</title>
+<meta name="description" content="Rond je bestelling bij aikelo af.">
+<meta name="theme-color" content="#F2EFE9">
+<meta property="og:title" content="Afrekenen · AIKELO">
+<meta property="og:description" content="Rond je bestelling bij aikelo af.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
+<script defer src="/js/products.js"></script>
+<script defer src="/js/app.js"></script>
+<script defer src="/js/pages.js"></script>
+</head>
+<body data-page="checkout">
+<div id="site-header"></div>
+<main id="main">
+
+<div class="wrap" id="checkoutWrap">
+  <header class="page-head" style="padding-bottom:0"><h1 style="font-size:clamp(34px,4.5vw,56px)">Afrekenen</h1></header>
+  <div class="checkout">
+    <form id="checkoutForm" novalidate>
+      <section class="form-section">
+        <h2>Jouw gegevens</h2>
+        <div class="fields">
+          <div class="field full"><label for="name">Volledige naam</label><input id="name" name="name" autocomplete="name" required><p class="err"></p></div>
+          <div class="field"><label for="email">E-mailadres</label><input id="email" name="email" type="email" autocomplete="email" required><p class="err"></p></div>
+          <div class="field"><label for="phone">Telefoon (optioneel)</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+      </section>
+      <section class="form-section">
+        <h2>Bezorgadres</h2>
+        <div class="fields">
+          <div class="field full"><label for="street">Straat en huisnummer</label><input id="street" name="street" autocomplete="street-address" required><p class="err"></p></div>
+          <div class="field"><label for="zip">Postcode</label><input id="zip" name="zip" autocomplete="postal-code" required><p class="err"></p></div>
+          <div class="field"><label for="city">Woonplaats</label><input id="city" name="city" autocomplete="address-level2" required><p class="err"></p></div>
+          <div class="field full"><label for="country">Land</label><select id="country" name="country" autocomplete="country"><option value="NL">Nederland</option><option value="BE">België</option></select></div>
+        </div>
+      </section>
+      <section class="form-section">
+        <h2>Betalen</h2>
+        <label class="radio-card"><input type="radio" name="payment" value="tikkie" checked><span><b>Betaalverzoek via iDEAL / Tikkie</b><small>Je krijgt binnen één werkdag een betaallink van ons.</small></span></label>
+        <label class="radio-card"><input type="radio" name="payment" value="bank"><span><b>Bankoverschrijving</b><small>We mailen je ons rekeningnummer en je bestelnummer.</small></span></label>
+        <p class="note">Je betaalt nu nog niets. Zodra je betaling binnen is, versturen we je pakket.</p>
+      </section>
+      <section class="form-section">
+        <div class="field"><label for="note">Opmerking (optioneel)</label><textarea id="note" name="note" placeholder="Bijvoorbeeld: het is een cadeau"></textarea></div>
+      </section>
+      <label class="check" style="margin-bottom:22px"><input type="checkbox" name="terms" id="terms"><span>Ik ga akkoord met de <a href="/voorwaarden" target="_blank">voorwaarden</a> en het <a href="/privacy" target="_blank">privacybeleid</a>.<span class="err" style="color:var(--error);font-size:13px;display:block"></span></span></label>
+      <p class="form-msg" id="orderMsg" role="alert"></p>
+      <button class="btn block" type="submit" id="placeOrder">Bestelling plaatsen</button>
+    </form>
+    <aside class="summary" id="summary" aria-label="Overzicht van je bestelling"></aside>
+  </div>
+</div>
+</main>
+<div id="site-footer"></div>
+</body>
+</html>

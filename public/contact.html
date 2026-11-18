@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · AIKELO</title>
+<meta name="description" content="Neem contact op met aikelo. Vragen over je bestelling, maten of retour.">
+<meta name="theme-color" content="#F2EFE9">
+<meta property="og:title" content="Contact · AIKELO">
+<meta property="og:description" content="Neem contact op met aikelo. Vragen over je bestelling, maten of retour.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="/js/products.js"></script>
+<script defer src="/js/app.js"></script>
+<script defer src="/js/pages.js"></script>
+</head>
+<body data-page="contact">
+<div id="site-header"></div>
+<main id="main">
+
+<div class="wrap">
+  <header class="page-head"><p class="eyebrow">Contact</p><h1 style="font-size:clamp(36px,5vw,64px)">Vraag het gewoon</h1><p class="lead" style="margin-top:14px">Over je bestelling, een maat of iets anders. We reageren binnen één werkdag.</p></header>
+  <div class="contact-grid" style="padding-bottom:96px">
+    <div class="prose">
+      <h2 style="margin-top:0">Mail</h2><p><a data-email href="#"></a></p>
+      <h2>Instagram</h2><p><a data-insta href="#" target="_blank" rel="noopener"></a></p>
+      <h2>Snel antwoord</h2><p>Veel vragen staan al bij de <a href="/info#faq">veelgestelde vragen</a>.</p>
+    </div>
+    <form id="contactForm" novalidate>
+      <div class="fields">
+        <div class="field"><label for="cname">Naam</label><input id="cname" name="cname" autocomplete="name"></div>
+        <div class="field"><label for="corder">Bestelnummer (optioneel)</label><input id="corder" name="corder"></div>
+        <div class="field full"><label for="csubject">Onderwerp</label><select id="csubject" name="csubject"><option>Vraag over mijn bestelling</option><option>Vraag over een maat</option><option>Ruilen of retourneren</option><option>Iets anders</option></select></div>
+        <div class="field full"><label for="cmsg">Bericht</label><textarea id="cmsg" name="cmsg"></textarea></div>
+      </div>
+      <p class="form-msg" id="contactMsg" role="status" style="margin-top:12px"></p>
+      <button class="btn" type="submit">Verstuur bericht</button>
+    </form>
+  </div>
+</div>
+</main>
+<div id="site-footer"></div>
+</body>
+</html>

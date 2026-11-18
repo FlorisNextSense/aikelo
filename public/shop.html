@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop · AIKELO</title>
+<meta name="description" content="Shop longsleeves, hoodies en zip-up hoodies van aikelo. Eigen ontwerpen, in meerdere kleuren.">
+<meta name="theme-color" content="#F2EFE9">
+<meta property="og:title" content="Shop · AIKELO">
+<meta property="og:description" content="Shop longsleeves, hoodies en zip-up hoodies van aikelo. Eigen ontwerpen, in meerdere kleuren.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="/js/products.js"></script>
+<script defer src="/js/app.js"></script>
+<script defer src="/js/pages.js"></script>
+</head>
+<body data-page="shop">
+<div id="site-header"></div>
+<main id="main">
+
+<div class="wrap">
+  <header class="page-head" style="padding-bottom:28px"><p class="eyebrow" id="count">&nbsp;</p><h1 id="shopTitle" style="font-size:clamp(36px,5vw,64px)">Alle kleding</h1><p class="lead" id="shopLead" style="margin-top:14px"></p></header>
+  <div class="filters">
+    <div class="filters" id="catFilters" role="group" aria-label="Filter op soort" style="margin:0"></div>
+    <div class="sort">
+      <label class="sr-only" for="colorFilter">Kleur</label><select id="colorFilter"></select>
+      <label class="sr-only" for="sort">Sorteren</label>
+      <select id="sort"><option value="featured">Uitgelicht</option><option value="new">Nieuw eerst</option><option value="low">Prijs laag–hoog</option><option value="high">Prijs hoog–laag</option></select>
+    </div>
+  </div>
+  <div class="grid" id="grid" style="padding-bottom:96px" aria-live="polite"></div>
+</div>
+</main>
+<div id="site-footer"></div>
+</body>
+</html>
