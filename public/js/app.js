@@ -127,6 +127,7 @@
   function footer() {
     var y = new Date().getFullYear();
     var insta = 'https://instagram.com/' + encodeURIComponent(CFG.instagram);
+    var tiktok = 'https://www.tiktok.com/@' + encodeURIComponent(CFG.tiktok);
     function col(title, links) {
       return '<div class="footer-col"><h3>' + title + '</h3><ul>' + links.map(function (l) {
         return '<li><a href="' + l[0] + '"' + (l[2] ? ' target="_blank" rel="noopener"' : '') + '>' + l[1] + '</a></li>';
@@ -137,11 +138,12 @@
       '<a href="./" aria-label="aikelo, naar de homepagina"><img class="footer-logo" src="img/logo.svg" alt="aikelo"></a>' +
       '<div class="socials">' +
       '<a href="' + insta + '" target="_blank" rel="noopener" aria-label="aikelo op Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>' +
+      '<a href="' + tiktok + '" target="_blank" rel="noopener" aria-label="aikelo op TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg></a>' +
       '<a href="mailto:' + esc(CFG.email) + '" aria-label="Mail aikelo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg></a>' +
       '</div></div>' +
       '<div class="footer-cols">' +
       col('Kleding', [['shop', 'Alles'], ['shop?cat=hoodies', 'Hoodies'], ['shop?cat=longsleeves', 'Longsleeves'], ['lookbook', 'Lookbook']]) +
-      col('Aikelo', [['over', 'Ons verhaal'], ['wishlist', 'Wishlist'], [insta, 'Instagram', true]]) +
+      col('Aikelo', [['over', 'Ons verhaal'], ['wishlist', 'Wishlist'], [insta, 'Instagram', true], [tiktok, 'TikTok', true]]) +
       col('Saaie dingen', [['info#retour', 'Retourneren &amp; ruilen'], ['voorwaarden', 'Voorwaarden'], ['privacy', 'Privacy']]) +
       col('Hulp', [['info#verzending', 'Verzending'], ['info#maten', 'Maattabel'], ['info#faq', 'Veelgestelde vragen'], ['contact', 'Contact']]) +
       '</div>' +

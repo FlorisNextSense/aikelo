@@ -8,6 +8,7 @@ window.AIKELO_CONFIG = {
   // ⚠️ Vul je eigen gegevens in
   email: 'aikelo.clothing@gmail.com',         // hier komen bestellingen en vragen binnen
   instagram: 'aikelo.clothing',            // zonder @
+  tiktok: 'aikelo.clothing',               // zonder @
   shippingCost: 4.95,              // verzendkosten NL
   freeShippingFrom: 100,           // gratis verzending vanaf dit bedrag
   deliveryText: '3 tot 5 werkdagen',
