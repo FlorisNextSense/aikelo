@@ -33,17 +33,74 @@
   // ---------- lookbook ----------
   // Achtergrondtint per kleur, zodat elk ontwerp een eigen sfeer krijgt
   var LB_BG = { navy: ['#D3CEC3', '#E4E0D7'], bordeaux: ['#E7E2D8', '#D6D0C4'], groen: ['#D9D5CA', '#ECE8DF'], grijs: ['#2A2A2D', '#3A3A3E'], wit: ['#BDB6A8', '#CFC9BC'] };
+  // Een korte tekst per ontwerp
+  var LB_TEXT = {
+    'hoodie-verticaal': 'aikelo van boven naar beneden. Van een afstand al te lezen, van dichtbij gewoon een fijne hoodie.',
+    'hoodie-holle-letters': 'Made to live in, in een boog over je schouders. Het motto van het merk, groot op je rug.',
+    'hoodie-nummer': '01. Het eerste nummer van aikelo. Rustig grijs, met een groot cijfer op de rug.',
+    'hoodie-poster': 'Drie regels, als een poster op je rug. Lees maar: made to live in.',
+    'longsleeve-stuiterend': 'De letters van aikelo vallen los over je rug, alsof ze net zijn neergegooid. Onderaan: een molen.',
+    'longsleeve-echo': 'aikelo, aikelo, aikelo, steeds zachter, als een echo. Onderaan: een fiets.',
+    'longsleeve-stempel': 'Een stempel op je rug, zoals op een oude brief. Onderaan: een tulp.',
+    'longsleeve-streep': 'Strepen, met een vette aikelo er dwars overheen. Klassiek, maar net anders.'
+  };
   P.lookbook = function () {
-    var a = A();
-    a.$('#lookbook').innerHTML = PRODUCTS.map(function (p, i) {
-      var c = p.colors[0], bg = LB_BG[c] || ['#E7E3DB', '#D4D0C7'];
-      return '<article class="lb-look reveal' + (i % 2 ? ' flip' : '') + '">' +
+    var a = A(), n = 0;
+    function look(p) {
+      var c = p.colors[0], bg = LB_BG[c] || ['#E7E3DB', '#D4D0C7'], flip = n % 2; n++;
+      return '<article class="lb-look reveal' + (flip ? ' flip' : '') + '">' +
         '<div class="lb-main"><a class="lb-frame" href="' + a.url(p, c) + '" style="background:' + bg[0] + '"><img src="' + a.img(p, c, 'achter') + '" alt="' + a.esc(p.name + ' in ' + COLORS[c].name + ', achterkant') + '" loading="lazy"></a></div>' +
         '<div class="lb-side"><a class="lb-frame" href="' + a.url(p, c) + '" style="background:' + bg[1] + '" tabindex="-1" aria-hidden="true"><img src="' + a.img(p, c, 'voor') + '" alt="" loading="lazy"></a>' +
-        '<div class="lb-caption"><div><p class="lb-no">Look ' + String(i + 1).padStart(2, '0') + ' · ' + a.esc(CATS[p.cat].name) + ' No. ' + a.esc(p.code) + '</p><p class="lb-name">' + a.esc(p.name) + ', ' + a.esc(COLORS[c].name.toLowerCase()) + '</p></div>' +
+        '<div class="lb-caption"><div><p class="lb-no">Look ' + String(n).padStart(2, '0') + ' · ' + a.esc(CATS[p.cat].name) + ' No. ' + a.esc(p.code) + '</p>' +
+        '<p class="lb-name">' + a.esc(p.name) + ', ' + a.esc(COLORS[c].name.toLowerCase()) + '</p>' +
+        '<p class="lb-text">' + a.esc(LB_TEXT[p.base] || p.short) + '</p></div>' +
         '<a class="link" href="' + a.url(p, c) + '">Shop deze look · ' + a.money(p.price) + '</a></div></div>' +
         '</article>';
-    }).join('');
+    }
+    function chapter(no, title, text) {
+      var id = no === '01' ? ' id="hoodies"' : no === '02' ? ' id="longsleeves"' : '';
+      return '<header class="lb-chapter reveal"' + id + '><span class="lb-chapter-no">' + no + '</span><div><h2>' + title + '</h2><p class="lead">' + text + '</p></div></header>';
+    }
+    function detail(id, color, label, text) {
+      var p = a.product(id);
+      return '<figure class="lb-detail reveal"><a class="lb-detail-img" href="' + a.url(p, color) + '"><img src="' + a.img(p, color, 'achter') + '" alt="' + a.esc(label + ' bij de zoom van de ' + p.name) + '" loading="lazy"></a>' +
+        '<figcaption><b>' + label + '</b>' + text + '</figcaption></figure>';
+    }
+    var hoodies = PRODUCTS.filter(function (p) { return p.cat === 'hoodies'; });
+    var longs = PRODUCTS.filter(function (p) { return p.cat === 'longsleeves'; });
+
+    a.$('#lookbook').innerHTML =
+      // proces: van leeg template naar aikelo
+      '<section class="lb-process" id="proces">' +
+      chapter('00', 'Van leeg vel naar aikelo', 'Elk ontwerp begint hetzelfde: met een leeg template. Floris tekent erop wat er in het dagelijks leven voorbijkomt, tot er een aikelo staat.') +
+      '<div class="lb-steps">' +
+      '<figure class="lb-step reveal"><div class="lb-step-img white"><img src="img/lookbook/template-hoodie.jpg" alt="Leeg template van een hoodie, voor- en achterkant" loading="lazy"></div><figcaption><span>Stap 1</span><b>Het lege template</b>Een hoodie zonder iets erop. Nog alles kan.</figcaption></figure>' +
+      '<figure class="lb-step reveal"><div class="lb-step-img idea"><p>molen<br>fiets<br>tulp<br><em>made to live in</em></p></div><figcaption><span>Stap 2</span><b>Het idee</b>Wat Floris onderweg, thuis en op straat ziet, wordt een schets.</figcaption></figure>' +
+      '<figure class="lb-step reveal"><div class="lb-step-img" style="background:#E6E1D7"><img src="' + a.img(a.product('hoodie-holle-letters-bordeaux'), 'bordeaux', 'achter') + '" alt="De Hoodie Made to live in in bordeaux, achterkant" loading="lazy"></div><figcaption><span>Stap 3</span><b>Een aikelo</b>Kleur erbij, print op de rug. Klaar om in te leven.</figcaption></figure>' +
+      '</div>' +
+      '<div class="lb-steps two">' +
+      '<figure class="lb-step reveal"><div class="lb-step-img grey"><img src="img/lookbook/template-longsleeve.jpg" alt="Leeg template van een longsleeve, voor- en achterkant" loading="lazy"></div><figcaption><span>Voor</span><b>Longsleeve, leeg</b>Het template waar elke longsleeve mee begint.</figcaption></figure>' +
+      '<figure class="lb-step reveal"><div class="lb-step-img" style="background:#BDB6A8"><img src="' + a.img(a.product('longsleeve-stuiterend-wit'), 'wit', 'achter') + '" alt="De Longsleeve Stuiterend in wit, achterkant" loading="lazy"></div><figcaption><span>Na</span><b>Longsleeve Stuiterend</b>Losse letters over de rug en een molen bij de zoom.</figcaption></figure>' +
+      '</div></section>' +
+
+      chapter('01', 'Hoodies', 'Ruim, zacht en met een grote print op de rug. Van voren houden we het rustig: alleen een klein aikelo.') +
+      hoodies.map(look).join('') +
+
+      // tussenstuk: de details bij de zoom
+      '<section class="lb-quote reveal"><p class="lb-quote-big">Een molen langs de weg.<br>Een fiets.<br>Een tulp.</p>' +
+      '<p class="lead">Kijk onderaan de rug van elke longsleeve. Daar staat een klein symbool, iets wat je elke dag ziet en pas opvalt als je beter kijkt.</p></section>' +
+      '<div class="lb-details">' +
+      detail('longsleeve-stuiterend-wit', 'wit', 'De molen', 'Bij de Longsleeve Stuiterend.') +
+      detail('longsleeve-echo-bordeaux', 'bordeaux', 'De fiets', 'Bij de Longsleeve Echo.') +
+      detail('longsleeve-stempel-navy', 'navy', 'De tulp', 'Bij de Longsleeve Stempel.') +
+      '</div>' +
+
+      chapter('02', 'Longsleeves', 'Een print op de rug, een symbool bij de zoom. Van voren een klein aikelo op de borst of bij de zoom.') +
+      longs.map(look).join('') +
+
+      // slot
+      '<section class="lb-outro reveal"><img src="img/logo.svg" alt="" aria-hidden="true"><p class="lead">made to live in. Niet voor de kast, maar voor elke dag.</p>' +
+      '<div class="hero-actions" style="justify-content:center"><a class="btn" href="shop">Shop de collectie</a><a class="btn ghost" href="over">Ons verhaal</a></div></section>';
   };
 
   // ---------- wishlist ----------
