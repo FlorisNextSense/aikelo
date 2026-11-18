@@ -450,7 +450,7 @@ table.sizes-t th { font-weight: 500; font-size: 12px; letter-spacing: .15em; tex
 .facts { background: var(--ink); color: var(--bg); padding: 36px; align-self: start; }
 .facts .eyebrow { color: #A8A39A; }
 .facts dl { margin: 0; display: grid; }
-.facts dl div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid #2a2a2a; }
+.facts dl div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid #2a2a2a; }
 .facts dl div:last-child { border-bottom: 0; }
 .facts dt { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: #A8A39A; }
 .facts dd { margin: 0; font-size: 17px; font-weight: 500; text-align: right; }

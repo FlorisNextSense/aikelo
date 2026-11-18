@@ -54,6 +54,9 @@ Direct online betalen (iDEAL via Mollie of Stripe) vraagt een klein stukje serve
 De site staat op **GitHub Pages**: https://florisnextsense.github.io/aikelo/
 Elke push naar `main` wordt automatisch gedeployed via [.github/workflows/pages.yml](.github/workflows/pages.yml) (alleen de map `public/` gaat online).
 
+**Cache:** in de HTML staan de CSS/JS-links als `style.css?v=dev`. Bij elke deploy vervangt de workflow `dev` door het commitnummer,
+zodat bezoekers na een wijziging meteen de nieuwe opmaak krijgen in plaats van een oude versie uit hun browser.
+
 Alle links zijn relatief, dus de site werkt ook op een eigen domein of op een andere host.
 Alleen `public/404.html` heeft `<base href="/aikelo/">`; pas dat aan naar `/` als je een eigen domein koppelt
 (Settings → Pages → Custom domain).
