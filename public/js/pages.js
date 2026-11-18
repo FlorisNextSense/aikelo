@@ -44,7 +44,7 @@
       var params = new URLSearchParams();
       if (cat !== 'all') params.set('cat', cat);
       if (color !== 'all') params.set('kleur', color);
-      history.replaceState(null, '', '/shop' + (params.toString() ? '?' + params : ''));
+      history.replaceState(null, '', 'shop' + (params.toString() ? '?' + params : ''));
       window.AIKELO_REVEAL();
     }
     catBar.addEventListener('click', function (e) { var b = e.target.closest('[data-cat]'); if (b) { cat = b.getAttribute('data-cat'); render(); } });
@@ -58,7 +58,7 @@
     var a = A(), p = a.product(qs('id'));
     var root = a.$('#pdp');
     if (!p) {
-      root.innerHTML = '<div class="thanks"><h1 style="font-size:40px">Niet gevonden</h1><p class="lead" style="margin:16px auto 28px">Dit product bestaat niet (meer).</p><a class="btn" href="/shop">Naar de shop</a></div>';
+      root.innerHTML = '<div class="thanks"><h1 style="font-size:40px">Niet gevonden</h1><p class="lead" style="margin:16px auto 28px">Dit product bestaat niet (meer).</p><a class="btn" href="shop">Naar de shop</a></div>';
       return;
     }
     var color = p.colors.indexOf(qs('kleur')) > -1 ? qs('kleur') : p.colors[0];
@@ -68,7 +68,7 @@
 
     var I = window.AIKELO_ICONS;
     root.innerHTML =
-      '<nav class="crumbs" aria-label="Kruimelpad"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/shop?cat=' + p.cat + '">' + a.esc(CATS[p.cat].name) + '</a><span aria-hidden="true">/</span><span aria-current="page">' + a.esc(p.name) + '</span></nav>' +
+      '<nav class="crumbs" aria-label="Kruimelpad"><a href="./">Home</a><span aria-hidden="true">/</span><a href="shop?cat=' + p.cat + '">' + a.esc(CATS[p.cat].name) + '</a><span aria-hidden="true">/</span><span aria-current="page">' + a.esc(p.name) + '</span></nav>' +
       '<div class="pdp">' +
       '<div class="gallery" id="gallery">' +
       '<figure data-zoom="voor"><img id="imgFront" alt=""><figcaption>Voorkant</figcaption></figure>' +
@@ -99,12 +99,12 @@
       '<details class="acc" open><summary>Beschrijving</summary><div class="acc-body">' + a.esc(p.desc) + '</div></details>' +
       '<details class="acc"><summary>Pasvorm &amp; materiaal</summary><div class="acc-body">' + (p.cat === 'longsleeves'
         ? 'Normale pasvorm, valt recht. Zwaar katoen dat zachter wordt naarmate je hem vaker draagt. Twijfel je tussen twee maten? Neem je normale maat.'
-        : 'Ruime, wat oversized pasvorm met verlaagde schouders. Zacht en warm aan de binnenkant. Wil je hem minder ruim? Neem een maat kleiner.') + ' Bekijk de <a href="/info#maten">maattabel</a>.</div></details>' +
+        : 'Ruime, wat oversized pasvorm met verlaagde schouders. Zacht en warm aan de binnenkant. Wil je hem minder ruim? Neem een maat kleiner.') + ' Bekijk de <a href="info#maten">maattabel</a>.</div></details>' +
       '<details class="acc"><summary>Wassen</summary><div class="acc-body">Binnenstebuiten wassen op 30 graden, niet in de droger, niet strijken op de print. Zo blijft de print het langst mooi.</div></details>' +
-      '<details class="acc"><summary>Verzenden &amp; retour</summary><div class="acc-body">We versturen binnen ' + a.esc(CFG.deliveryText) + ' met track &amp; trace. Verzending kost ' + a.money2(CFG.shippingCost) + ', en is gratis vanaf ' + a.money(CFG.freeShippingFrom) + '. Past het niet? Je hebt 14 dagen om te ruilen of te retourneren. <a href="/info#retour">Meer info</a>.</div></details>' +
+      '<details class="acc"><summary>Verzenden &amp; retour</summary><div class="acc-body">We versturen binnen ' + a.esc(CFG.deliveryText) + ' met track &amp; trace. Verzending kost ' + a.money2(CFG.shippingCost) + ', en is gratis vanaf ' + a.money(CFG.freeShippingFrom) + '. Past het niet? Je hebt 14 dagen om te ruilen of te retourneren. <a href="info#retour">Meer info</a>.</div></details>' +
       '</div>' +
       '</div></div>' +
-      '<section class="section tight"><div class="section-head"><h2>Misschien ook iets</h2><a class="link" href="/shop">Alles bekijken</a></div><div class="grid" id="related"></div></section>' +
+      '<section class="section tight"><div class="section-head"><h2>Misschien ook iets</h2><a class="link" href="shop">Alles bekijken</a></div><div class="grid" id="related"></div></section>' +
       sizeGuideModal() +
       '<div class="modal" id="zoomModal" role="dialog" aria-modal="true" aria-label="Vergroot"><div class="zoom-card"><img id="zoomImg" alt=""><button class="icon-btn" type="button" data-close-modal aria-label="Sluiten">' + I.close + '</button></div></div>';
 
@@ -176,7 +176,7 @@
     function summary() {
       var box = a.$('#summary');
       if (!Cart.items.length) {
-        a.$('#checkoutWrap').innerHTML = '<div class="thanks"><h1 style="font-size:40px">Je winkelmandje is leeg</h1><p class="lead" style="margin:16px auto 28px">Kies eerst iets moois uit de shop.</p><a class="btn" href="/shop">Naar de shop</a></div>';
+        a.$('#checkoutWrap').innerHTML = '<div class="thanks"><h1 style="font-size:40px">Je winkelmandje is leeg</h1><p class="lead" style="margin:16px auto 28px">Kies eerst iets moois uit de shop.</p><a class="btn" href="shop">Naar de shop</a></div>';
         return;
       }
       var st = Cart.subtotal(), sh = Cart.shipping();
@@ -257,7 +257,7 @@
           sessionStorage.removeItem('aikelo-checkout');
         } catch (e) {}
         Cart.clear();
-        location.href = '/bedankt';
+        location.href = 'bedankt';
       }
       var mailto = 'mailto:' + CFG.email + '?subject=' + encodeURIComponent('Bestelling ' + order.number) + '&body=' + encodeURIComponent(text);
       var ej = CFG.emailjs;

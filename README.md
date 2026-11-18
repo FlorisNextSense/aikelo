@@ -48,10 +48,11 @@ Direct online betalen (iDEAL via Mollie of Stripe) vraagt een klein stukje serve
 
 ## Online zetten
 
-`firebase.json` staat klaar voor Firebase Hosting (net als bij tappo):
+De site staat op **GitHub Pages**: https://florisnextsense.github.io/aikelo/
+Elke push naar `main` wordt automatisch gedeployed via [.github/workflows/pages.yml](.github/workflows/pages.yml) (alleen de map `public/` gaat online).
 
-```bash
-npx firebase-tools deploy --only hosting --project <jouw-project-id>
-```
+Alle links zijn relatief, dus de site werkt ook op een eigen domein of op een andere host.
+Alleen `public/404.html` heeft `<base href="/aikelo/">`; pas dat aan naar `/` als je een eigen domein koppelt
+(Settings → Pages → Custom domain).
 
-Elke andere statische host werkt ook (Netlify, Vercel, GitHub Pages), zolang nette URL's aanstaan (`/shop` → `shop.html`).
+`firebase.json` staat er nog voor als je later toch naar Firebase Hosting wilt.

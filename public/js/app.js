@@ -16,8 +16,8 @@
   function money(n) { return fmt.format(n).replace(/\s/g, '').replace(/,00$/, ''); }
   function money2(n) { return fmt.format(n).replace(/\s/g, ''); }
   function product(id) { for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].id === id) return PRODUCTS[i]; return null; }
-  function img(p, color, side) { return '/img/p/' + p.img + '-' + color + '-' + (side || 'voor') + '.svg'; }
-  function url(p, color) { return '/product?id=' + encodeURIComponent(p.id) + (color ? '&kleur=' + encodeURIComponent(color) : ''); }
+  function img(p, color, side) { return 'img/p/' + p.img + '-' + color + '-' + (side || 'voor') + '.svg'; }
+  function url(p, color) { return 'product?id=' + encodeURIComponent(p.id) + (color ? '&kleur=' + encodeURIComponent(color) : ''); }
   function store(get, key, val) {
     try { if (get) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; }
   }
@@ -63,9 +63,10 @@
 
   // ---------- layout ----------
   function header() {
-    var path = location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+    // laatste stuk van het pad, zodat het ook in een submap (GitHub Pages) werkt
+    var path = location.pathname.replace(/\.html$/, '').split('/').pop();
     var cat = new URLSearchParams(location.search).get('cat');
-    var here = path + (path === '/shop' && cat ? '?cat=' + cat : '');
+    var here = path + (path === 'shop' && cat ? '?cat=' + cat : '');
     function a(href, label) { return '<a href="' + href + '"' + (here === href ? ' aria-current="page"' : '') + '>' + label + '</a>'; }
     var announce = 'Gratis verzending vanaf ' + money(CFG.freeShippingFrom) + ' · 14 dagen bedenktijd';
     return '<div class="announce">' + esc(announce) + '</div>' +
@@ -73,9 +74,9 @@
       '<button class="icon-btn menu-btn" type="button" aria-label="Menu openen" aria-controls="nav" aria-expanded="false">' + ICONS.menu + '</button>' +
       '<nav class="nav" id="nav" aria-label="Hoofdmenu">' +
       '<button class="icon-btn nav-close" type="button" aria-label="Menu sluiten">' + ICONS.close + '</button>' +
-      a('/shop', 'Shop') + a('/shop?cat=longsleeves', 'Longsleeves') + a('/shop?cat=hoodies', 'Hoodies') + a('/over', 'Over aikelo') + a('/contact', 'Contact') +
+      a('shop', 'Shop') + a('shop?cat=longsleeves', 'Longsleeves') + a('shop?cat=hoodies', 'Hoodies') + a('over', 'Over aikelo') + a('contact', 'Contact') +
       '</nav>' +
-      '<a class="brand" href="/" aria-label="aikelo, naar de homepagina"><img src="/img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
+      '<a class="brand" href="./" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
       '<div class="header-actions"><button class="icon-btn" type="button" id="cartBtn" aria-label="Winkelmandje openen" aria-controls="cart">' + ICONS.bag + '<span class="cart-count" id="cartCount" hidden>0</span></button></div>' +
       '</div></header>';
   }
@@ -84,10 +85,10 @@
     var y = new Date().getFullYear();
     return '<footer class="site-footer"><div class="wrap">' +
       '<div class="footer-grid">' +
-      '<div><img class="footer-logo" src="/img/logo.svg" alt="aikelo"><p>made to live in. Kleding uit eigen schetsen, gemaakt om in te leven, niet om in te bewaren.</p></div>' +
-      '<div><h3>Shop</h3><ul><li><a href="/shop">Alles</a></li><li><a href="/shop?cat=longsleeves">Longsleeves</a></li><li><a href="/shop?cat=hoodies">Hoodies</a></li><li><a href="/shop?cat=zip">Zip-up hoodies</a></li></ul></div>' +
-      '<div><h3>Hulp</h3><ul><li><a href="/info#verzending">Verzending</a></li><li><a href="/info#retour">Retourneren</a></li><li><a href="/info#maten">Maattabel</a></li><li><a href="/info#faq">Veelgestelde vragen</a></li></ul></div>' +
-      '<div><h3>aikelo</h3><ul><li><a href="/over">Over ons</a></li><li><a href="/contact">Contact</a></li><li><a href="https://instagram.com/' + esc(CFG.instagram) + '" rel="noopener" target="_blank">Instagram</a></li><li><a href="/voorwaarden">Voorwaarden</a></li><li><a href="/privacy">Privacy</a></li></ul></div>' +
+      '<div><img class="footer-logo" src="img/logo.svg" alt="aikelo"><p>made to live in. Kleding uit eigen schetsen, gemaakt om in te leven, niet om in te bewaren.</p></div>' +
+      '<div><h3>Shop</h3><ul><li><a href="shop">Alles</a></li><li><a href="shop?cat=longsleeves">Longsleeves</a></li><li><a href="shop?cat=hoodies">Hoodies</a></li><li><a href="shop?cat=zip">Zip-up hoodies</a></li></ul></div>' +
+      '<div><h3>Hulp</h3><ul><li><a href="info#verzending">Verzending</a></li><li><a href="info#retour">Retourneren</a></li><li><a href="info#maten">Maattabel</a></li><li><a href="info#faq">Veelgestelde vragen</a></li></ul></div>' +
+      '<div><h3>aikelo</h3><ul><li><a href="over">Over ons</a></li><li><a href="contact">Contact</a></li><li><a href="https://instagram.com/' + esc(CFG.instagram) + '" rel="noopener" target="_blank">Instagram</a></li><li><a href="voorwaarden">Voorwaarden</a></li><li><a href="privacy">Privacy</a></li></ul></div>' +
       '</div>' +
       '<div class="footer-bottom"><span>© ' + y + ' AIKELO</span><span>MADE TO LIVE IN</span></div>' +
       '</div></footer>';
@@ -125,7 +126,7 @@
     var body = $('#cartBody'), foot = $('#cartFoot');
     if (!body) return;
     if (!Cart.items.length) {
-      body.innerHTML = '<div class="empty"><p>Je winkelmandje is nog leeg.</p><a class="btn" href="/shop">Naar de shop</a></div>';
+      body.innerHTML = '<div class="empty"><p>Je winkelmandje is nog leeg.</p><a class="btn" href="shop">Naar de shop</a></div>';
       foot.innerHTML = '';
     } else {
       body.innerHTML = Cart.items.map(function (it, i) { return lineItemHTML(it, i, true); }).join('');
@@ -136,7 +137,7 @@
         '<div class="totals"><div><span>Subtotaal</span><span>' + money2(st) + '</span></div>' +
         '<div><span>Verzending</span><span>' + (Cart.shipping() ? money2(Cart.shipping()) : 'Gratis') + '</span></div>' +
         '<div class="grand"><span>Totaal</span><span>' + money2(st + Cart.shipping()) + '</span></div></div>' +
-        '<a class="btn block" href="/afrekenen">Afrekenen</a>';
+        '<a class="btn block" href="afrekenen">Afrekenen</a>';
     }
     document.dispatchEvent(new CustomEvent('cart:change'));
   }
