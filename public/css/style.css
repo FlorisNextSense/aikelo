@@ -506,7 +506,8 @@ section[id], h2[id] { scroll-margin-top: 120px; }
 .card.soon .card-media img { filter: blur(14px); transform: scale(1.04); }
 .card.soon:hover .card-media img.front { opacity: 1; }
 .card.soon:hover .card-media img.back { opacity: 0; }
-.card.soon .card-title span:last-child { white-space: nowrap; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.card.soon .card-title span { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+.card.soon .card-link { cursor: default; }
 .hero-panel.soon img { filter: blur(16px) drop-shadow(0 30px 40px rgba(0,0,0,.25)); }
 .hero-panel.soon .soon-label { top: 40%; }
 .pdp.soon .gallery img { filter: blur(18px); }

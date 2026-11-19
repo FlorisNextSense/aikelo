@@ -226,6 +226,7 @@
     var box = $('#searchResults');
     q = q.trim().toLowerCase();
     var list = PRODUCTS.filter(function (p) {
+      if (p.soon) return false;
       if (!q) return true;
       var hay = [p.name, CATS[p.cat].name, COLORS[p.colors[0]].name, p.short].join(' ').toLowerCase();
       return q.split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; });
@@ -267,6 +268,10 @@
 
   function card(p, color) {
     color = color || p.colors[0];
+    if (p.soon) return '<div class="card reveal soon"><div class="card-link">' +
+      '<div class="card-media"><span class="soon-label">Coming soon</span>' +
+      '<img class="front" src="' + img(p, color, 'voor') + '" alt="Binnenkort" loading="lazy"></div>' +
+      '<div class="card-body"><div class="card-title"><span>Coming soon</span></div></div></div></div>';
     return '<div class="card reveal' + (p.soon ? ' soon' : '') + '">' +
       '<a class="card-link" href="' + url(p, color) + '">' +
       '<div class="card-media">' + (p.soon ? '<span class="soon-label">Coming soon</span>' : p.isNew ? '<span class="tag">Nieuw</span>' : '') +
