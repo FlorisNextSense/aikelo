@@ -54,7 +54,7 @@
         '<div class="lb-caption"><div><p class="lb-no">Look ' + String(n).padStart(2, '0') + ' · ' + a.esc(CATS[p.cat].name) + ' No. ' + a.esc(p.code) + '</p>' +
         '<p class="lb-name">' + a.esc(p.name) + ', ' + a.esc(COLORS[c].name.toLowerCase()) + '</p>' +
         '<p class="lb-text">' + a.esc(LB_TEXT[p.base] || p.short) + '</p></div>' +
-        '<a class="link" href="' + a.url(p, c) + '">Shop deze look · ' + a.money(p.price) + '</a></div></div>' +
+        '<a class="link" href="' + a.url(p, c) + '">' + (p.soon ? 'Coming soon' : 'Shop deze look · ' + a.money(p.price)) + '</a></div></div>' +
         '</article>';
     }
     function chapter(no, title, text) {
@@ -134,7 +134,7 @@
     var I = window.AIKELO_ICONS;
     root.innerHTML =
       '<nav class="crumbs" aria-label="Kruimelpad"><a href="./">Home</a><span aria-hidden="true">/</span><a href="shop?cat=' + p.cat + '">' + a.esc(CATS[p.cat].name) + '</a><span aria-hidden="true">/</span><span aria-current="page">' + a.esc(p.name) + '</span></nav>' +
-      '<div class="pdp">' +
+      '<div class="pdp' + (p.soon ? ' soon' : '') + '">' +
       '<div class="gallery" id="gallery">' +
       '<figure data-zoom="voor"><img id="imgFront" alt=""><figcaption>Voorkant</figcaption></figure>' +
       '<figure data-zoom="achter"><img id="imgBack" alt=""><figcaption>Achterkant</figcaption></figure>' +
@@ -142,7 +142,7 @@
       '<div class="buybox">' +
       '<p class="eyebrow">' + a.esc(CATS[p.cat].name) + ' · No. ' + a.esc(p.code) + '</p>' +
       '<h1>' + a.esc(p.name) + '</h1>' +
-      '<div class="price">' + a.money(p.price) + ' <small>incl. btw</small></div>' +
+      (p.soon ? '<div class="price">Coming soon <small>binnenkort te koop</small></div>' : '<div class="price">' + a.money(p.price) + ' <small>incl. btw</small></div>') +
       '<p>' + a.esc(p.short) + '</p>' +
       '<form id="buyForm" novalidate>' +
       (p.colors.length > 1 ? '<fieldset class="opt"><legend>Kleur <b id="colorName"></b></legend><div class="swatches">' +
@@ -153,7 +153,7 @@
       '</div></fieldset>' +
       '<p class="form-msg" id="buyMsg" role="alert"></p>' +
       '<div class="buy-row"><div class="qty"><button type="button" id="qMinus" aria-label="Eén minder">−</button><output id="qVal" aria-label="Aantal">1</output><button type="button" id="qPlus" aria-label="Eén meer">+</button></div>' +
-      '<button class="btn" type="submit">In winkelmandje</button>' + window.AIKELO_WISH_BTN(p, 'inline') + '</div>' +
+      (p.soon ? '<button class="btn" type="button" disabled>Coming soon</button>' : '<button class="btn" type="submit">In winkelmandje</button>') + window.AIKELO_WISH_BTN(p, 'inline') + '</div>' +
       '</form>' +
       '<ul class="perks">' +
       '<li>' + I.truck + 'Verzonden binnen ' + a.esc(CFG.deliveryText) + ', gratis vanaf ' + a.money(CFG.freeShippingFrom) + '</li>' +
@@ -191,6 +191,7 @@
     a.$('#qPlus').addEventListener('click', function () { qty = Math.min(10, qty + 1); a.$('#qVal').textContent = qty; });
     a.$('#buyForm').addEventListener('submit', function (e) {
       e.preventDefault();
+      if (p.soon) return;
       if (!size) { a.$('#buyMsg').textContent = 'Kies eerst je maat.'; a.$('.sizes input').focus(); return; }
       window.AIKELO_CART.add(p.id, color, size, qty);
       window.AIKELO_TOAST(qty + '× ' + p.name + ' (' + COLORS[color].name + ', ' + size + ') toegevoegd');

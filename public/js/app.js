@@ -234,7 +234,7 @@
       (list.length ? '<div class="search-grid">' + list.map(function (p) {
         var c = p.colors[0];
         return '<a class="search-item" href="' + url(p, c) + '"><span class="search-thumb"><img src="' + img(p, c, 'achter') + '" alt="" loading="lazy"></span>' +
-          '<span><b>' + esc(p.name) + '</b><small>' + esc(CATS[p.cat].name) + ' · ' + esc(COLORS[c].name) + ' · ' + money(p.price) + '</small></span></a>';
+          '<span><b>' + esc(p.name) + '</b><small>' + esc(CATS[p.cat].name) + ' · ' + esc(COLORS[c].name) + ' · ' + (p.soon ? 'Coming soon' : money(p.price)) + '</small></span></a>';
       }).join('') + '</div>' : '<p class="note">Niets gevonden. Probeer “hoodie”, “streep” of een kleur zoals “groen”.</p>');
   }
   function openSearch() {
@@ -267,12 +267,12 @@
 
   function card(p, color) {
     color = color || p.colors[0];
-    return '<div class="card reveal">' +
+    return '<div class="card reveal' + (p.soon ? ' soon' : '') + '">' +
       '<a class="card-link" href="' + url(p, color) + '">' +
-      '<div class="card-media">' + (p.isNew ? '<span class="tag">Nieuw</span>' : '') +
+      '<div class="card-media">' + (p.soon ? '<span class="soon-label">Coming soon</span>' : p.isNew ? '<span class="tag">Nieuw</span>' : '') +
       '<img class="front" src="' + img(p, color, 'voor') + '" alt="' + esc(p.name + ' in ' + COLORS[color].name + ', voorkant') + '" loading="lazy">' +
       '<img class="back" src="' + img(p, color, 'achter') + '" alt="" loading="lazy"></div>' +
-      '<div class="card-body"><div class="card-title"><span>' + esc(p.name) + '</span><span>' + money(p.price) + '</span></div>' +
+      '<div class="card-body"><div class="card-title"><span>' + esc(p.name) + '</span><span>' + (p.soon ? 'Coming soon' : money(p.price)) + '</span></div>' +
       '<div class="card-sub">' + esc(CATS[p.cat].name) + ' · ' + esc(COLORS[color].name) + '</div>' +
       '</div></a>' + wishBtn(p) + '</div>';
   }

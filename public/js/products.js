@@ -109,10 +109,11 @@ window.AIKELO_CATEGORIES = {
       v.id = p.id + '-' + c;
       v.base = p.id;
       v.colors = [c];
+      v.soon = p.cat === 'hoodies'; // hoodies: coming soon
       flat.push(v);
     });
   });
-  // volgorde in de lijst: eerst hoodies, dan longsleeves
-  flat.sort(function (x, y) { return (x.cat === 'hoodies' ? 0 : 1) - (y.cat === 'hoodies' ? 0 : 1); });
+  // volgorde in de lijst: eerst wat te koop is, dan wat binnenkort komt
+  flat.sort(function (x, y) { return (x.soon ? 1 : 0) - (y.soon ? 1 : 0); });
   window.AIKELO_PRODUCTS = flat;
 })();
