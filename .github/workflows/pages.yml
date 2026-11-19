@@ -23,6 +23,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # Zolang COMING_SOON "true" is, toont elke pagina het coming soon-scherm.
+      # Winkel openen? Zet hieronder "false" en push.
+      - name: Coming soon op elke pagina
+        env:
+          COMING_SOON: "true"
+        run: |
+          if [ "$COMING_SOON" = "true" ]; then
+            for f in public/*.html; do
+              [ "$f" = public/coming-soon.html ] || cp public/coming-soon.html "$f"
+            done
+            # 404 kan op een dieper pad staan: plaatjes vanaf de site-root laden
+            sed -i 's#<meta charset="utf-8">#<meta charset="utf-8">\n<base href="/aikelo/">#' public/404.html
+          fi
       # elke deploy een nieuw versienummer, zodat browsers altijd de nieuwste CSS/JS ophalen
       - name: Versienummer in CSS/JS-links
         run: sed -i "s/?v=dev/?v=${GITHUB_SHA::8}/g" public/*.html

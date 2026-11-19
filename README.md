@@ -17,6 +17,7 @@ Open daarna http://localhost:8080.
 | Pagina | Bestand |
 |---|---|
 | Home | `public/index.html` |
+| Coming soon-scherm (online op élke pagina zolang `COMING_SOON: "true"` in `.github/workflows/pages.yml` staat; lokaal zie je gewoon de winkel) | `public/coming-soon.html` |
 | Shop met filters (soort, kleur, sorteren) | `public/shop.html` |
 | Productpagina (kleur, maat, aantal, voor- en achterkant, zoom, maattabel) | `public/product.html?id=…` |
 | Winkelmandje (schuift in vanaf rechts op elke pagina, bewaard in de browser) | `public/js/app.js` |
