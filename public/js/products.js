@@ -20,7 +20,7 @@ window.AIKELO_COLORS = {
   wit:              { name: 'Wit',              hex: '#F7F5F0' },
   navy:             { name: 'Navy',             hex: '#0F1630' },
   bordeaux:         { name: 'Bordeaux',         hex: '#5E2B33' },
-  groen:            { name: 'Groen',            hex: '#5C675D' },
+  groen:            { name: 'Groen',            hex: '#59675C' },
   grijs:            { name: 'Grijs',            hex: '#9A9A9A' }
 };
 
