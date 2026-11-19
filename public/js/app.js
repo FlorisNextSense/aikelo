@@ -106,16 +106,16 @@
   function header() {
     // laatste stuk van het pad, zodat het ook in een submap (GitHub Pages) werkt
     var path = location.pathname.replace(/\.html$/, '').split('/').pop();
-    var here = (path === '' || path === 'index') ? './' : path;
+    var here = (path === '' || path === 'index') ? 'home' : path;
     function a(href, label) { return '<a href="' + href + '"' + (here === href ? ' aria-current="page"' : '') + '>' + label + '</a>'; }
     return '<div class="topbar">' + ticker() +
       '<header class="site-header"><div class="header-row">' +
       '<button class="icon-btn menu-btn" type="button" aria-label="Menu openen" aria-controls="nav" aria-expanded="false">' + ICONS.menu + '</button>' +
       '<nav class="nav" id="nav" aria-label="Hoofdmenu">' +
       '<button class="icon-btn nav-close" type="button" aria-label="Menu sluiten">' + ICONS.close + '</button>' +
-      a('./', 'Home') + a('shop', 'Kleding') + a('lookbook', 'Lookbook') + a('over', 'Ons verhaal') + a('contact', 'Contact') +
+      a('home', 'Home') + a('shop', 'Kleding') + a('lookbook', 'Lookbook') + a('over', 'Ons verhaal') + a('contact', 'Contact') +
       '</nav>' +
-      '<a class="brand" href="./" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
+      '<a class="brand" href="home" aria-label="aikelo, naar de homepagina"><img src="img/logo.svg" alt="aikelo" width="116" height="27"></a>' +
       '<div class="header-actions">' +
       '<button class="hd-btn" type="button" id="searchBtn" aria-label="Zoeken" aria-controls="search">' + ICONS.search + '<span class="hd-label">Zoeken</span></button>' +
       '<a class="hd-btn" href="wishlist" aria-label="Wishlist">' + ICONS.heart + '<span class="hd-label">Wishlist</span><span class="hd-count" data-wish-count>0</span></a>' +
@@ -135,7 +135,7 @@
     }
     return '<footer class="site-footer"><div class="footer-inner">' +
       '<div class="footer-brand">' +
-      '<a href="./" aria-label="aikelo, naar de homepagina"><img class="footer-logo" src="img/logo.svg" alt="aikelo"></a>' +
+      '<a href="home" aria-label="aikelo, naar de homepagina"><img class="footer-logo" src="img/logo.svg" alt="aikelo"></a>' +
       '<div class="socials">' +
       '<a href="' + insta + '" target="_blank" rel="noopener" aria-label="aikelo op Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>' +
       '<a href="' + tiktok + '" target="_blank" rel="noopener" aria-label="aikelo op TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.6 2.2 4.4 5 4.6"/></svg></a>' +

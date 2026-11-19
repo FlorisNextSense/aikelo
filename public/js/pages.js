@@ -126,7 +126,7 @@
 
     var I = window.AIKELO_ICONS;
     root.innerHTML =
-      '<nav class="crumbs" aria-label="Kruimelpad"><a href="./">Home</a><span aria-hidden="true">/</span><a href="shop?cat=' + p.cat + '">' + a.esc(CATS[p.cat].name) + '</a><span aria-hidden="true">/</span><span aria-current="page">' + a.esc(p.name) + '</span></nav>' +
+      '<nav class="crumbs" aria-label="Kruimelpad"><a href="home">Home</a><span aria-hidden="true">/</span><a href="shop?cat=' + p.cat + '">' + a.esc(CATS[p.cat].name) + '</a><span aria-hidden="true">/</span><span aria-current="page">' + a.esc(p.name) + '</span></nav>' +
       '<div class="pdp' + (p.soon ? ' soon' : '') + '">' +
       '<div class="gallery" id="gallery">' +
       '<figure data-zoom="voor"><img id="imgFront" alt=""><figcaption>Voorkant</figcaption></figure>' +

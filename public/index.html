@@ -3,69 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIKELO · made to live in</title>
-<meta name="description" content="Aikelo maakt longsleeves en hoodies uit eigen schetsen. Kleding om in te leven. Bekijk de eerste collectie.">
+<title>AIKELO · coming soon</title>
+<meta name="description" content="Aikelo komt eraan. Kleding uit eigen schetsen, made to live in.">
 <meta name="theme-color" content="#F2EFE9">
-<meta property="og:title" content="AIKELO · made to live in">
-<meta property="og:description" content="Aikelo maakt longsleeves en hoodies uit eigen schetsen. Kleding om in te leven. Bekijk de eerste collectie.">
+<meta property="og:title" content="AIKELO · coming soon">
+<meta property="og:description" content="Aikelo komt eraan. Kleding uit eigen schetsen, made to live in.">
 <meta property="og:type" content="website">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=dev">
-<script defer src="js/products.js?v=dev"></script>
-<script defer src="js/app.js?v=dev"></script>
-<script defer src="js/pages.js?v=dev"></script>
+<style>
+  :root { --bg: #F2EFE9; --ink: #111; --muted: #6E6A63; --accent: #5E2B33; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: Jost, system-ui, sans-serif; font-weight: 300; overflow: hidden; }
+  .soon { position: fixed; inset: 0; display: grid; place-items: center; overflow: hidden; }
+
+  /* de kleding die rond het logo draait */
+  .ell { position: absolute; inset: 0; }
+  .orbit { position: absolute; left: 50%; top: 50%; width: 0; height: 0; animation: spin 70s linear infinite; }
+  .piece { position: absolute; left: 0; top: 0; transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a))); }
+  .piece img { display: block; width: var(--w); transform: translate(-50%, -50%); animation: spin 70s linear infinite reverse; filter: blur(var(--b)); opacity: .9; }
+  .orbit.inner { animation-duration: 95s; animation-direction: reverse; }
+  .orbit.inner .piece img { animation-duration: 95s; animation-direction: normal; }
+  @keyframes spin { to { rotate: 360deg; } }
+
+  /* midden */
+  .center { position: relative; z-index: 2; text-align: center; padding: 0 24px; }
+  .center::before { content: ""; position: absolute; inset: -30% -20%; z-index: -1; background: radial-gradient(closest-side, var(--bg) 55%, rgba(242,239,233,0)); }
+  .logo { width: clamp(150px, 24vw, 260px); height: auto; display: block; margin: 0 auto; }
+  h1 { font-weight: 400; font-size: clamp(44px, 9vw, 120px); line-height: .95; letter-spacing: -.01em; margin: 26px 0 18px; text-transform: lowercase; }
+  .quote { font-size: clamp(15px, 1.8vw, 19px); letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  .quote b { color: var(--accent); font-weight: 400; }
+  .social { margin-top: 34px; display: flex; gap: 22px; justify-content: center; }
+  .social a { color: var(--ink); font-size: 12px; letter-spacing: .24em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .social a:hover { color: var(--accent); }
+
+  /* binnenkomen */
+  .center > * { opacity: 0; transform: translateY(14px); animation: up .9s cubic-bezier(.2,.7,.2,1) forwards; }
+  .center > :nth-child(2) { animation-delay: .15s; } .center > :nth-child(3) { animation-delay: .3s; } .center > :nth-child(4) { animation-delay: .45s; }
+  @keyframes up { to { opacity: 1; transform: none; } }
+
+  /* op een smal scherm een ovale ring, zodat boven en onder ook kleding draait */
+  @media (max-width: 700px) { .piece { --r: var(--rm) !important; } .piece img { width: var(--wm); transform: translate(-50%, -50%) scaleY(.57); } .ell { transform: scaleY(1.75); } }
+  @media (prefers-reduced-motion: reduce) { .orbit, .piece img { animation: none; } .center > * { animation: none; opacity: 1; transform: none; } }
+</style>
 </head>
-<body data-page="home" class="has-hero">
-<div id="site-header"></div>
-<main id="main">
-
-<section class="hero2" aria-label="Collectie No. 1">
-  <div class="hero-panels"><a class="hero-panel" href="product?id=longsleeve-echo-bordeaux&amp;kleur=bordeaux" style="background:#E6E1D7" aria-label="Longsleeve Echo in bordeaux"><img src="img/p/ls-echo-bordeaux-achter.svg" alt="" class="ls" style="--r:-3deg"></a><a class="hero-panel" href="product?id=longsleeve-stempel-navy&amp;kleur=navy" style="background:#CFC9BC" aria-label="Longsleeve Stempel in navy"><img src="img/p/ls-stempel-navy-achter.svg" alt="" class="ls" style="--r:2deg"></a><a class="hero-panel" href="product?id=longsleeve-echo-groen&amp;kleur=groen" style="background:#E2DBCB" aria-label="Longsleeve Echo in groen"><img src="img/p/ls-echo-groen-achter.svg" alt="" class="ls" style="--r:-2deg"></a><a class="hero-panel" href="product?id=longsleeve-stuiterend-wit&amp;kleur=wit" style="background:#B9B2A4" aria-label="Longsleeve Stuiterend in wit"><img src="img/p/ls-stuiterend-wit-achter.svg" alt="" class="ls" style="--r:3deg"></a></div>
-  <div class="hero-shade"></div>
-  <div class="hero-content">
-    <div class="hero-caption">
-      <div>
-        <h1>Collectie No. 1 · made to live in</h1>
-        <div class="hero-actions"><a class="btn outline-light" href="lookbook">Bekijk lookbook</a><a class="btn solid-light" href="#kleding">Shop nu</a></div>
-      </div>
+<body>
+<main class="soon">
+  <div class="ell" aria-hidden="true">
+    <div class="orbit" id="outer"></div>
+    <div class="orbit inner" id="inner"></div>
+  </div>
+  <div class="center">
+    <img class="logo" src="img/logo.svg" alt="aikelo">
+    <h1>coming soon</h1>
+    <p class="quote"><b>made</b> to live in</p>
+    <div class="social">
+      <a href="https://www.instagram.com/aikelo.clothing/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@aikelo.clothing" target="_blank" rel="noopener">TikTok</a>
     </div>
-    <img class="hero-word" src="img/logo.svg" alt="aikelo">
-    <div class="hero-progress" aria-hidden="true"><span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span></div>
   </div>
-</section>
-
-<section class="section dark story" id="verhaal"><div class="wrap split">
-  <div class="split-media reveal"><img src="img/p/ls-stempel-navy-achter.svg" alt="Longsleeve Stempel in navy, achterkant met stempel en tulp" loading="lazy"></div>
-  <div class="reveal">
-    <p class="eyebrow">Ons verhaal</p>
-    <h2>Elk ontwerp begon als schets</h2>
-    <p class="lead" style="margin:20px 0 24px">Aikelo is bedacht door Floris, 17 jaar, uit Nederland. Floris ontwerpt alles zelf, met wat er in het dagelijks leven voorbijkomt: een molentje, een fiets, een tulp, verstopt bij de zoom. Kleding die je niet voor een speciale dag bewaart, maar elke dag draagt.</p>
-    <a class="btn light" href="over#bedenker">Lees het verhaal van Floris</a>
-  </div>
-</div></section>
-
-<section class="section" id="kleding"><div class="wrap">
-  <div class="section-head"><div><p class="eyebrow">Collectie No. 1</p><h2>Kleding</h2></div></div>
-  <div class="filters" id="catFilters" role="group" aria-label="Filter op soort"></div>
-  <div class="grid" id="grid" aria-live="polite"></div>
-</div></section>
-
-
-<section class="section"><div class="wrap features">
-  <div class="feature reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 7l3 3"/></svg><h3>Eigen ontwerp</h3><p>Elke print komt uit onze eigen schetsen. Je vindt hem nergens anders.</p></div>
-  <div class="feature reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19c0-8 6-14 15-14 0 9-6 15-14 15"/><path d="M5 19l8-8"/></svg><h3>Om in te leven</h3><p>Gemaakt om vaak te dragen en vaak te wassen.</p></div>
-  <div class="feature reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><h3>Snel in huis</h3><p>Verzonden met track &amp; trace. Gratis vanaf €100.</p></div>
-  <div class="feature reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5L4 9l4 4"/></svg><h3>14 dagen bedenktijd</h3><p>Past het niet? Ruilen of terugsturen kan.</p></div>
-</div></section>
-
-<section class="section dark tight"><div class="wrap news">
-  <div><p class="eyebrow">Volg aikelo</p><h2>Als eerste de nieuwe drops zien?</h2></div>
-  <div><p class="lead" style="margin-bottom:20px">Nieuwe ontwerpen, schetsen en drops laten we eerst zien op Instagram.</p><a class="btn light" href="https://instagram.com/aikelo.clothing" target="_blank" rel="noopener">Volg @aikelo.clothing</a></div>
-</div></section>
 </main>
-<div id="site-footer"></div>
+<script>
+  // buitenste ring: groot en wazig, binnenste ring: kleiner en nog waziger
+  var outer = ['ls-echo-groen', 'hoodie-verticaal-navy', 'ls-stuiterend-wit', 'streep-navy', 'ls-echo-bordeaux', 'hoodie-nummer-grijs', 'ls-stempel-navy', 'hoodie-holle-letters-bordeaux'];
+  var inner = ['streep-groen', 'hoodie-poster-groen', 'streep-grijs', 'ls-echo-groen', 'hoodie-verticaal-navy'];
+  function ring(id, list, r, rm, w, wm, blur, offset) {
+    document.getElementById(id).innerHTML = list.map(function (n, i) {
+      var a = offset + i * 360 / list.length;
+      return '<div class="piece" style="--a:' + a + 'deg;--r:' + r + ';--rm:' + rm + ';--w:' + w + ';--wm:' + wm + ';--b:' + blur + '"><img src="img/p/' + n + '-achter.svg" alt=""></div>';
+    }).join('');
+  }
+  ring('outer', outer, 'min(44vw, 640px)', '62vw', 'clamp(170px, 17vw, 260px)', '150px', '9px', 0);
+  ring('inner', inner, 'min(30vw, 400px)', '44vw', 'clamp(110px, 11vw, 170px)', '100px', '13px', 20);
+</script>
 </body>
 </html>
