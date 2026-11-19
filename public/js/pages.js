@@ -58,7 +58,7 @@
         '</article>';
     }
     function chapter(no, title, text) {
-      var id = no === '01' ? ' id="hoodies"' : no === '02' ? ' id="longsleeves"' : '';
+      var id = no === '01' ? ' id="longsleeves"' : '';
       return '<header class="lb-chapter reveal"' + id + '><span class="lb-chapter-no">' + no + '</span><div><h2>' + title + '</h2><p class="lead">' + text + '</p></div></header>';
     }
     function detail(id, color, label, text) {
@@ -66,25 +66,18 @@
       return '<figure class="lb-detail reveal"><a class="lb-detail-img" href="' + a.url(p, color) + '"><img src="' + a.img(p, color, 'achter') + '" alt="' + a.esc(label + ' bij de zoom van de ' + p.name) + '" loading="lazy"></a>' +
         '<figcaption><b>' + label + '</b>' + text + '</figcaption></figure>';
     }
-    var hoodies = PRODUCTS.filter(function (p) { return p.cat === 'hoodies'; });
-    var longs = PRODUCTS.filter(function (p) { return p.cat === 'longsleeves'; });
+    // wat nog Coming soon is, staat niet in het lookbook
+    var longs = PRODUCTS.filter(function (p) { return p.cat === 'longsleeves' && !p.soon; });
 
     a.$('#lookbook').innerHTML =
       // proces: van leeg template naar aikelo
       '<section class="lb-process" id="proces">' +
       chapter('00', 'Van leeg vel naar aikelo', 'Elk ontwerp begint hetzelfde: met een leeg template. Floris tekent erop wat er in het dagelijks leven voorbijkomt, tot er een aikelo staat.') +
       '<div class="lb-steps">' +
-      '<figure class="lb-step reveal"><div class="lb-step-img white"><img src="img/lookbook/template-hoodie.jpg" alt="Leeg template van een hoodie, voor- en achterkant" loading="lazy"></div><figcaption><span>Stap 1</span><b>Het lege template</b>Een hoodie zonder iets erop. Nog alles kan.</figcaption></figure>' +
+      '<figure class="lb-step reveal"><div class="lb-step-img grey"><img src="img/lookbook/template-longsleeve.jpg" alt="Leeg template van een longsleeve, voor- en achterkant" loading="lazy"></div><figcaption><span>Stap 1</span><b>Het lege template</b>Een longsleeve zonder iets erop. Nog alles kan.</figcaption></figure>' +
       '<figure class="lb-step reveal"><div class="lb-step-img idea"><p>molen<br>fiets<br>tulp<br><em>made to live in</em></p></div><figcaption><span>Stap 2</span><b>Het idee</b>Wat Floris onderweg, thuis en op straat ziet, wordt een schets.</figcaption></figure>' +
-      '<figure class="lb-step reveal"><div class="lb-step-img" style="background:#E6E1D7"><img src="' + a.img(a.product('hoodie-holle-letters-bordeaux'), 'bordeaux', 'achter') + '" alt="De Hoodie Made to live in in bordeaux, achterkant" loading="lazy"></div><figcaption><span>Stap 3</span><b>Een aikelo</b>Kleur erbij, print op de rug. Klaar om in te leven.</figcaption></figure>' +
-      '</div>' +
-      '<div class="lb-steps two">' +
-      '<figure class="lb-step reveal"><div class="lb-step-img grey"><img src="img/lookbook/template-longsleeve.jpg" alt="Leeg template van een longsleeve, voor- en achterkant" loading="lazy"></div><figcaption><span>Voor</span><b>Longsleeve, leeg</b>Het template waar elke longsleeve mee begint.</figcaption></figure>' +
-      '<figure class="lb-step reveal"><div class="lb-step-img" style="background:#BDB6A8"><img src="' + a.img(a.product('longsleeve-stuiterend-wit'), 'wit', 'achter') + '" alt="De Longsleeve Stuiterend in wit, achterkant" loading="lazy"></div><figcaption><span>Na</span><b>Longsleeve Stuiterend</b>Losse letters over de rug en een molen bij de zoom.</figcaption></figure>' +
+      '<figure class="lb-step reveal"><div class="lb-step-img" style="background:#BDB6A8"><img src="' + a.img(a.product('longsleeve-stuiterend-wit'), 'wit', 'achter') + '" alt="De Longsleeve Stuiterend in wit, achterkant" loading="lazy"></div><figcaption><span>Stap 3</span><b>Een aikelo</b>Losse letters over de rug en een molen bij de zoom. Klaar om in te leven.</figcaption></figure>' +
       '</div></section>' +
-
-      chapter('01', 'Hoodies', 'Ruim, zacht en met een grote print op de rug. Van voren houden we het rustig: alleen een klein aikelo.') +
-      hoodies.map(look).join('') +
 
       // tussenstuk: de details bij de zoom
       '<section class="lb-quote reveal"><p class="lb-quote-big">Een molen langs de weg.<br>Een fiets.<br>Een tulp.</p>' +
@@ -95,7 +88,7 @@
       detail('longsleeve-stempel-navy', 'navy', 'De tulp', 'Bij de Longsleeve Stempel.') +
       '</div>' +
 
-      chapter('02', 'Longsleeves', 'Een print op de rug, een symbool bij de zoom. Van voren een klein aikelo op de borst of bij de zoom.') +
+      chapter('01', 'Longsleeves', 'Een print op de rug, een symbool bij de zoom. Van voren een klein aikelo op de borst of bij de zoom.') +
       longs.map(look).join('') +
 
       // slot
