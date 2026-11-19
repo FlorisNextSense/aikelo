@@ -109,7 +109,7 @@ window.AIKELO_CATEGORIES = {
       v.id = p.id + '-' + c;
       v.base = p.id;
       v.colors = [c];
-      v.soon = p.cat === 'hoodies'; // hoodies: coming soon
+      v.soon = p.cat === 'hoodies' || p.id === 'longsleeve-streep'; // coming soon
       flat.push(v);
     });
   });
