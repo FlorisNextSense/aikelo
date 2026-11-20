@@ -94,9 +94,9 @@ window.AIKELO_CATEGORIES = {
     {
       id: 'longsleeve-streep', code: 'S', cat: 'longsleeves',
       name: 'Longsleeve Streep', price: 39.95, img: 'streep',
-      colors: ['navy', 'groen', 'grijs'], sizes: LS_SIZES,
+      colors: ['navy', 'groen', 'zwart'], sizes: LS_SIZES,
       short: 'Wit met gekleurde strepen, print direct over de strepen.',
-      desc: 'Een klassieke streep in wit met navy, groen of grijs. De aikelo-print staat direct over de strepen heen: zwart op navy en groen, rood op grijs.',
+      desc: 'Een klassieke streep in wit met navy, groen of zwart, met een effen boord in dezelfde kleur. De aikelo-print staat direct over de strepen heen: rood op navy en zwart, geel op groen.',
       isNew: false
     },
     {
