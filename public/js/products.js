@@ -21,7 +21,8 @@ window.AIKELO_COLORS = {
   navy:             { name: 'Navy',             hex: '#0F1630' },
   bordeaux:         { name: 'Bordeaux',         hex: '#5E2B33' },
   groen:            { name: 'Groen',            hex: '#59675C' },
-  grijs:            { name: 'Grijs',            hex: '#9A9A9A' }
+  grijs:            { name: 'Grijs',            hex: '#9A9A9A' },
+  zwart:            { name: 'Zwart',            hex: '#161616' }
 };
 
 window.AIKELO_CATEGORIES = {
@@ -59,6 +60,38 @@ window.AIKELO_CATEGORIES = {
       isNew: true
     },
     {
+      id: 'longsleeve-motto', code: 'A', cat: 'longsleeves',
+      name: 'Longsleeve Made to live in', price: 39.95, img: 'ls-motto',
+      colors: ['navy'], sizes: LS_SIZES,
+      short: '“made to live in.” groot op de rug, klein aikelo bij de zoom.',
+      desc: 'Op de rug “made to live in.” in grote witte letters. Van voren alleen een klein aikelo bij de zoom.',
+      isNew: true
+    },
+    {
+      id: 'longsleeve-groot', code: 'C', cat: 'longsleeves',
+      name: 'Longsleeve Groot', price: 39.95, img: 'ls-groot',
+      colors: ['wit'], sizes: LS_SIZES,
+      short: 'Vette bordeaux letters “made to live in.” op de rug.',
+      desc: 'Wit, met op de rug “made to live in.” in dikke bordeaux letters. Van voren een klein bordeaux aikelo op de borst.',
+      isNew: true
+    },
+    {
+      id: 'longsleeve-logo', code: 'E', cat: 'longsleeves',
+      name: 'Longsleeve Logo', price: 39.95, img: 'ls-logo',
+      colors: ['zwart'], sizes: LS_SIZES,
+      short: 'Zwart, aikelo over de borst, klein motto op de rug.',
+      desc: 'Zwart met aikelo groot over de borst. Op de rug, laag bij de zoom, een klein “made to live in”.',
+      isNew: true
+    },
+    {
+      id: 'longsleeve-live-in', code: 'F', cat: 'longsleeves',
+      name: 'Longsleeve Live in', price: 39.95, img: 'ls-livein',
+      colors: ['zwart'], sizes: LS_SIZES,
+      short: 'Zwart met “live in.” in geel op de rug.',
+      desc: 'Zwart, met op de rug een klein “made to” en daaronder groot “live in.” in geel. Van voren een klein geel aikelo bij de zoom.',
+      isNew: true
+    },
+    {
       id: 'longsleeve-streep', code: 'S', cat: 'longsleeves',
       name: 'Longsleeve Streep', price: 39.95, img: 'streep',
       colors: ['navy', 'groen', 'grijs'], sizes: LS_SIZES,
@@ -85,7 +118,7 @@ window.AIKELO_CATEGORIES = {
     {
       id: 'hoodie-verticaal', code: '11', cat: 'hoodies',
       name: 'Hoodie Verticaal', price: 64.99, img: 'hoodie-verticaal',
-      colors: ['navy'], sizes: HOODIE_SIZES,
+      colors: ['navy', 'zwart'], sizes: HOODIE_SIZES,
       short: 'Een enorm aikelo verticaal over de rug.',
       desc: 'aikelo in enorme letters van boven naar beneden over je rug. Voor een klein woordje bij de zoom.',
       isNew: false
@@ -109,7 +142,7 @@ window.AIKELO_CATEGORIES = {
       v.id = p.id + '-' + c;
       v.base = p.id;
       v.colors = [c];
-      v.soon = p.cat === 'hoodies' || p.id === 'longsleeve-streep'; // coming soon
+      v.soon = true; // alles nog coming soon (op false zetten zodra iets te koop is)
       flat.push(v);
     });
   });

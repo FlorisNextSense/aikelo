@@ -63,8 +63,8 @@
     }
     function detail(id, color, label, text) {
       var p = a.product(id);
-      return '<figure class="lb-detail reveal"><a class="lb-detail-img" href="' + a.url(p, color) + '"><img src="' + a.img(p, color, 'achter') + '" alt="' + a.esc(label + ' bij de zoom van de ' + p.name) + '" loading="lazy"></a>' +
-        '<figcaption><b>' + label + '</b>' + text + '</figcaption></figure>';
+      return '<figure class="lb-detail reveal' + (p.soon ? ' soon' : '') + '"><a class="lb-detail-img"' + (p.soon ? '' : ' href="' + a.url(p, color) + '"') + '><img src="' + a.img(p, color, 'achter') + '" alt="' + a.esc(label + ' bij de zoom van de ' + p.name) + '" loading="lazy"></a>' +
+        '<figcaption><b>' + label + '</b>' + (p.soon ? 'Coming soon.' : text) + '</figcaption></figure>';
     }
     // wat nog Coming soon is, staat niet in het lookbook
     var longs = PRODUCTS.filter(function (p) { return p.cat === 'longsleeves' && !p.soon; });
@@ -76,7 +76,7 @@
       '<div class="lb-steps">' +
       '<figure class="lb-step reveal"><div class="lb-step-img grey"><img src="img/lookbook/template-longsleeve.jpg" alt="Leeg template van een longsleeve, voor- en achterkant" loading="lazy"></div><figcaption><span>Stap 1</span><b>Het lege template</b>Een longsleeve zonder iets erop. Nog alles kan.</figcaption></figure>' +
       '<figure class="lb-step reveal"><div class="lb-step-img idea"><p>molen<br>fiets<br>tulp<br><em>made to live in</em></p></div><figcaption><span>Stap 2</span><b>Het idee</b>Wat Floris onderweg, thuis en op straat ziet, wordt een schets.</figcaption></figure>' +
-      '<figure class="lb-step reveal"><div class="lb-step-img" style="background:#BDB6A8"><img src="' + a.img(a.product('longsleeve-stuiterend-wit'), 'wit', 'achter') + '" alt="De Longsleeve Stuiterend in wit, achterkant" loading="lazy"></div><figcaption><span>Stap 3</span><b>Een aikelo</b>Losse letters over de rug en een molen bij de zoom. Klaar om in te leven.</figcaption></figure>' +
+      '<figure class="lb-step reveal' + (a.product('longsleeve-stuiterend-wit').soon ? ' soon' : '') + '"><div class="lb-step-img" style="background:#BDB6A8"><img src="' + a.img(a.product('longsleeve-stuiterend-wit'), 'wit', 'achter') + '" alt="De Longsleeve Stuiterend in wit, achterkant" loading="lazy"></div><figcaption><span>Stap 3</span><b>Een aikelo</b>Losse letters over de rug en een molen bij de zoom. Klaar om in te leven.</figcaption></figure>' +
       '</div></section>' +
 
       // tussenstuk: de details bij de zoom
@@ -89,7 +89,7 @@
       '</div>' +
 
       chapter('01', 'Longsleeves', 'Een print op de rug, een symbool bij de zoom. Van voren een klein aikelo op de borst of bij de zoom.') +
-      longs.map(look).join('') +
+      (longs.length ? longs.map(look).join('') : '<div class="lb-soon reveal"><p class="eyebrow">Collectie No. 1</p><p class="lb-quote-big">Coming soon</p><p class="lead">De looks komen hier zodra de eerste stukken klaar zijn.</p></div>') +
 
       // slot
       '<section class="lb-outro reveal"><img src="img/logo.svg" alt="" aria-hidden="true"><p class="lead">made to live in. Niet voor de kast, maar voor elke dag.</p>' +
