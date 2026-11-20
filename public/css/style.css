@@ -85,6 +85,9 @@ body.has-hero .topbar:not(.solid) .icon-btn:hover { background: rgba(255,255,255
   .nav a { font-size: 15px; padding: 16px 0; border-bottom: 1px solid var(--line); }
   .nav a[aria-current="page"] { border-bottom-color: var(--ink); }
   .nav-close { position: absolute; top: 14px; right: 14px; }
+  /* backdrop-filter maakt van de balk het kader voor het vaste menu; dan wordt het menu maar zo hoog als de balk */
+  .site-header { backdrop-filter: none; background: var(--bg); }
+  .nav { overflow-y: auto; }
 }
 @media (max-width: 380px) { .header-actions { gap: 0; } .hd-btn { padding: 0 4px; } }
 @media (min-width: 1001px) { .nav-close { display: none; } }
